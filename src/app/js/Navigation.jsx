@@ -6,17 +6,19 @@ const Navigation = props => {
         <div className="navigation">
             <div className="container nav-content">
                 <div>
-                    <Link className="link nav-link" to="/">
-                        Home
+                    <Link className="link nav-link title-name" to="/">
+                        Stardog.tech
+                    </Link>
+                    &nbsp; &nbsp; &nbsp;
+                    <Link className="link nav-link" to="/blog">
+                        blog
                     </Link>
                     {props.user && (
                         <span>
                             &nbsp; &nbsp; &nbsp;
                             <Link className="link nav-link" to="/profile">
                                 Profile
-                            </Link>
-                        </span>
-                    )}
+                            </Link>      </span>)}
                 </div>
                 <div>
                     {props.user ? (
@@ -24,19 +26,17 @@ const Navigation = props => {
                             Logout
                         </Link>
                     ) : (
-                        <span>
-                            <Link className="link nav-link" to="/auth/sign-in">
-                                Sign in
+                            <span>
+                                <Link className="link nav-link" to="/auth/sign-in">
+                                    Sign in
                             </Link>
-                            &nbsp; &nbsp; &nbsp;
+                                &nbsp; &nbsp; &nbsp;
                             <Link className="link nav-link" to="/auth/sign-up">
-                                Sign up
+                                    Sign up
                             </Link>
-                        </span>
-                    )}
-                </div>
-            </div>
-        </div>
+                            </span>
+                        )}
+                </div>     </div> </div>
     )
 }
 
