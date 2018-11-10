@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Blog = () => {
+const Feed = () => {
   return (
     <div className="container">
-      This is the Blog babay!
+      and this is where the stories are told
     </div>
   );
 };
 
-export default Blog;
+export default Feed;

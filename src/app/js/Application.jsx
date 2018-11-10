@@ -7,7 +7,7 @@ import Auth from './Auth'
 import Home from './Home'
 import Navigation from './Navigation'
 import Profile from './Profile'
-import Blog from './Blog'
+import Index from './feed/index'
 import NotFound from './NotFound'
 import api from './utils/api'
 
@@ -35,7 +35,7 @@ class Application extends React.Component {
                     <Switch>
                         <Route exact path="/" render={() => <Home user={this.state.user} />} />
                         <Route exact path="/profile" render={() => <Profile user={this.state.user} />} />
-                        <Route exact path="/blog" render={() => <Blog user={this.state.user} />} />
+                        <Route exact path="/blog" render={() => <Index user={this.state.user} />} />
                         <Route
                             path="/auth"
                             render={() => <Auth setUser={this._setUser} resetUser={this._resetUser} />}

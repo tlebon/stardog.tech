@@ -62,3 +62,14 @@
         color: lighten($primary-color, 8%);
     }
 }
+
+.blog-field{
+    resize:none;
+
+    &:focus{
+        // border: 2px solid #555;
+        height:400px;
+        width:500px;
+
+    }
+}

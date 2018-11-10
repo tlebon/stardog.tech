@@ -13,7 +13,7 @@ body {
 
 .container {
     padding: 25px calc((100vw - 960px) / 2);
-
+// background:white !important;
     @media (max-width: 980px) {
         padding: 25px 10px;
     }
