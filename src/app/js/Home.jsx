@@ -3,13 +3,19 @@ import Doggie from '../assets/doggie.jpg'
 
 const Home = props => {
     return (
-        <div className="container">
+        <div className="container-dark">
             <h1>Hello, {props.user ? props.user.email : 'Poochie'}, welcome to Stardog.tech.</h1>
-           <h2> Using technology to improve your life and the world.</h2> 
+           <h2> This is my website! I am building it to learn more about React and web development</h2> 
             <br />
-        <div className="stars earth">
-            <img src={Doggie} alt="doggie" width="50%"/>
-        </div></div>
+            I dont know where it will go, but please feel free to join me on my journey. 
+            <br />
+            I apologize if it is broken or weird or bad. It is a work in progres, just like me. :p
+            <br />
+            <img src={Doggie} alt="doggie" width="40%" />
+        {/* <div className="earth"></div> */}
+        <div className="stars">
+        </div>
+        </div>
     )
 }
 

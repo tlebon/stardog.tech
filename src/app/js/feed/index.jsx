@@ -10,10 +10,14 @@ class Index extends Component {
       blog: ''
     }
   }
+  submitHandler(){
+    
+  }
   render() {
     return (
-      <div>
-        <Blog />
+      <div className="container-lite">
+       {this.props.user && <Blog /> }
+       <hr />
         <Feed />
       </div>
     );
