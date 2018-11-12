@@ -7,18 +7,46 @@ class Index extends Component {
     super(props)
 
     this.state = {
-      blog: ''
+      blog: '',
+      feed: [],
+      error:""
     }
+    this.submitHandler=this.submitHandler.bind(this);
+
   }
-  submitHandler(){
-    
+
+  componentDidMount() {
+    api
+      .get(`/api/feed/feed`)
+      .then(data => {
+        this.setState({
+          feed: data,
+          loading: false
+        })
+      })
+  }
+
+  submitHandler() {
+    api
+      .post('/api/feed/blog', { blog })
+      .then(data => {
+        this.setState({
+          feed:[...data,this.state.blog],
+          error:""
+        });
+       })
+       .catch(err =>{
+         this.setState({
+           error:err.description
+         })
+       })
   }
   render() {
     return (
       <div className="container-lite">
-       {this.props.user && <Blog /> }
-       <hr />
-        <Feed />
+        {this.props.user && <Blog onClick={this.submitHandler} />}
+        <hr />
+        <Feed feed={this.state.feed}/>
       </div>
     );
   }

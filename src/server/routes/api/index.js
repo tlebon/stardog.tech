@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 
 const authRoutes = require('./auth')
+const feedRoutes = require('./feed')
 const { userMiddleware, checkLoggedIn } = require('../../utils/middleware')
 
 router.use(userMiddleware)
@@ -16,6 +17,7 @@ router.get('/protected', checkLoggedIn, (req, res) => {
 })
 
 router.use('/auth', authRoutes)
+router.use('/feed', feedRoutes)
 
 router.use((req, res) => {
     res.status(404).send({ error: 'not-found' })
