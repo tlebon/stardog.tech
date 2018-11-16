@@ -7,8 +7,11 @@ const Blog = (props) => {
       Understand that all of our stories come from a common origin.
       <br />
       <br />
-      <textarea className="blog-field" placeholder="Tell me a Fable.." value={props.blog} ></textarea> &nbsp;
-      <button onClick={submitHandler}>Let it be Done</button>
+      <textarea className="blog-field" 
+      placeholder="Tell me a Fable.." 
+      value={props.value} 
+      onChange={e=>props.handleBlog(e.target.value)}></textarea> &nbsp;
+      <button onClick={()=>props.submitHandler(props.value)}>Let it be Done</button>
     </div>
   );
 };

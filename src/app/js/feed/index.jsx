@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Blog from './Blog'
 import Feed from './Feed'
+import api from "../utils/api"
 
 class Index extends Component {
   constructor(props) {
@@ -9,10 +10,10 @@ class Index extends Component {
     this.state = {
       blog: '',
       feed: [],
-      error:""
+      error: ""
     }
-    this.submitHandler=this.submitHandler.bind(this);
-
+    this._submitHandler = this._submitHandler.bind(this);
+    this._handleBlog = this._handleBlog.bind(this);
   }
 
   componentDidMount() {
@@ -26,27 +27,34 @@ class Index extends Component {
       })
   }
 
-  submitHandler() {
+  _submitHandler(blog) {
     api
       .post('/api/feed/blog', { blog })
       .then(data => {
         this.setState({
-          feed:[...data,this.state.blog],
-          error:""
+          feed: [...data, this.state.blog],
+          error: ""
         });
-       })
-       .catch(err =>{
-         this.setState({
-           error:err.description
-         })
-       })
+        console.log(this.state.feed)
+      })
+      .catch(err => {
+        this.setState({
+          error: err.description,
+          blog:""
+        })
+      })
+  }
+  _handleBlog(value){
+    this.setState({
+      blog:value
+    })
   }
   render() {
     return (
       <div className="container-lite">
-        {this.props.user && <Blog onClick={this.submitHandler} />}
+        {this.props.user && <Blog submitHandler={this._submitHandler} value={this.state.blog} handleBlog={this._handleBlog} />}
         <hr />
-        <Feed feed={this.state.feed}/>
+        <Feed feed={this.state.feed} />
       </div>
     );
   }
