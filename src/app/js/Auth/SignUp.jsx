@@ -9,7 +9,7 @@ class SignUp extends React.Component {
 
     render() {
         return (
-            <div className="container">
+            <div className="container-lite">
                 <h1>Sign Up</h1>
                 <input
                     type="email"
