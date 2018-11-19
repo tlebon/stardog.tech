@@ -11,7 +11,8 @@ const postSchema = new Schema({
    required:true,
  },  
  profilePicture: String,
- likedByUser: [{ type: String }]
+ likedByUser: [{ type: String }],
+ private: Boolean,
 
 
 },  {

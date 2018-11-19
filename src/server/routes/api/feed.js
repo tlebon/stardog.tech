@@ -6,9 +6,11 @@ const authRoutes = require('./auth')
 
 
 router.post('/blog', (req, res,next) => {
-  let {blog} = req.body;
+  console.log(req.body)
+  let {blog,priv} = req.body;
 let post = new Post({
   blog, 
+  private:priv,
   email:req.user.email,
   profilePicture:req.user.profilePicture,
 })
@@ -29,5 +31,16 @@ router.get('/feed', (req,res,next)=>{
   })
 })
 
+router.post('/delete',(req,res,next)=>{
+  let del= req.body;
+  Post.deleteOne({_id:del._id})
+  .then(data=>{
+    console.log(data)
+    res.send({_id:del._id});
+  })
+  .catch(err=>{
+    console.log(err);
+  })
+})
 
 module.exports = router

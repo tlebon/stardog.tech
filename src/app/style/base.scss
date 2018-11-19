@@ -24,9 +24,9 @@ body {
 }
 
 .container-lite {
-    padding: 25px calc((100vw - 960px) / 2);
+    padding: 10px 15vw 0px ;
 background:white !important;
-height:100vh;
+// height:100vh;
     @media (max-width: 980px) {
         padding: 25px 10px;
     }

@@ -1,10 +1,12 @@
 .navigation {
     background-color: $primary-color;
+    height: 60px;
 }
 
 .nav-content {
     display: flex;
     justify-content: space-between;
+    align-content: center;
 }
 
 .title-name{
