@@ -6,6 +6,8 @@ Originally it was going to be a simple portfolio site but now the plan is to use
 
 As it has new features added I will update the readme accordingly. :)
 
+19/11/2018: The blog feed is working now! It is a community blog for any user to post on. It will have some new features added to it still but currently it works and you can set a post to private for it to only show up for you. In the next few days the private feed will also be added to your profile page. Deleting works, but editing has not been implemented. As the website has one working feature I will try to add it to the webpage now. Watch for more changes to come. :) -Stardog.
+
  ## Have a nice day!
 
 
