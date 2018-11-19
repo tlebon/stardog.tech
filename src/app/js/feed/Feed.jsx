@@ -1,4 +1,5 @@
 import React from 'react';
+const moment = require("moment");
 
 const Feed = (props) => {
   let feed = props.feed.map( post => {
@@ -6,8 +7,8 @@ const Feed = (props) => {
     if (post.private===false || (props.user && post.private===true && props.user.email===post.email)){
       return (
         <div key={post._id}>
-        {post.created_at}
-        <h4>{post.email}</h4>
+        {moment(post.created_at).fromNow()}
+        &nbsp; {post.email}
         <br />
         <span>
           {post.blog}
