@@ -11,7 +11,7 @@ const Home = props => {
             <br />
             I apologize if it is broken or weird or bad. It is a work in progres, just like me. :p
             <br />
-            <img src={Doggie} alt="doggie" width="40%" />
+            {/* <img src={Doggie} alt="doggie" width="40%" /> */}
         {/* <div className="earth"></div> */}
         <div className="stars">
         </div>

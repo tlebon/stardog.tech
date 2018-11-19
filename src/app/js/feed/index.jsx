@@ -32,8 +32,9 @@ class Index extends Component {
       .post('/api/feed/blog', { blog })
       .then(data => {
         this.setState({
-          feed: [...data, this.state.blog],
-          error: ""
+          feed: [data,...this.state.feed],  
+          error: "",
+          blog:''
         });
         console.log(this.state.feed)
       })
