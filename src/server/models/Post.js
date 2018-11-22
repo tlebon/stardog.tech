@@ -17,11 +17,11 @@ const postSchema = new Schema({
   },
   type: {
     type: String,
-    default: unsorted,
+    default: 'unsorted',
     required: true
   },
   private: {
-    type: boolean,
+    type: Boolean,
     default: false
   },
   likedByUser: [{ type: String }],
