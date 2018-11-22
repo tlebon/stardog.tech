@@ -1,14 +1,15 @@
 const express = require('express')
 const router = express.Router()
-const Post = require("../../models/Post")
+const AnonPost = require("../../models/Post")
 const authRoutes = require('./auth')
+const Post= require("../../models/User")
 
 
 
-router.post('/blog', (req, res,next) => {
+router.post('/blog/', (req, res,next) => {
   console.log(req.body)
   let {blog,priv} = req.body;
-let post = new Post({
+let post = new AnonPost({
   blog, 
   private:priv,
   email:req.user.email,
