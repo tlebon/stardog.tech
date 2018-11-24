@@ -4,9 +4,12 @@ const Schema = mongoose.Schema
 const postSchema = new Schema({
   email: {
     type: String,    //make a user.ref
-    required: true,
+    required: false,
+    default: 'Anonymous'
   },
-  profilePicture: String,
+  profilePicture: {
+    type:String,
+    default: 'https://upload.wikimedia.org/wikipedia/commons/9/93/Default_profile_picture_%28male%29_on_Facebook.jpg'},
   title: {
     type: String,
     required: false,
@@ -17,7 +20,7 @@ const postSchema = new Schema({
   },
   type: {
     type: String,
-    default: 'unsorted',
+    default: 'Unsorted',
     required: true
   },
   private: {

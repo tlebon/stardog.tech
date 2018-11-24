@@ -1,16 +1,18 @@
 const express = require('express')
 const router = express.Router()
-const AnonPost = require("../../models/Post")
+// const Collection = require("../../models/Collection")
 const authRoutes = require('./auth')
-const Post= require("../../models/User")
+const Post= require("../../models/Post")
 
 
-
-router.post('/blog/', (req, res,next) => {
+//posts a single entry to the database
+router.post('/entry/', (req, res,next) => {
   console.log(req.body)
-  let {blog,priv} = req.body;
-let post = new AnonPost({
-  blog, 
+  let {entry,priv,title,type} = req.body;
+let post = new Post({
+  entry, 
+  title,
+  type,
   private:priv,
   email:req.user.email,
   profilePicture:req.user.profilePicture,
@@ -20,8 +22,8 @@ post.save().then(result =>{
   res.send(post)
 })
 })
-
-router.get('/feed', (req,res,next)=>{
+//gets the feed
+router.get('/', (req,res,next)=>{
   Post.find({})
   .sort([["created_at", -1]])
   .then(data=>{
@@ -31,8 +33,8 @@ router.get('/feed', (req,res,next)=>{
     console.log(err);
   })
 })
-
-router.post('/delete',(req,res,next)=>{
+//deletes an entry
+router.post('/entry/d',(req,res,next)=>{
   let del= req.body;
   Post.deleteOne({_id:del._id})
   .then(data=>{
