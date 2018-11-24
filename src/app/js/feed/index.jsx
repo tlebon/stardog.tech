@@ -88,10 +88,11 @@ class Index extends Component {
   //   })
   // }
   render() {
-    return (
-      <div className="container-lite">
+    return (<div className="container-lite">
       This is the Stories babay! Jounal or create stories here. Let other people interact with them, make them their own. &nbsp; &nbsp;
       Understand that all of our stories come from a common origin.
+
+      <div className="container-lite-blog">
         {this.props.user && <Blog 
         submitHandler={this._submitHandler} 
         value={this.state.entry} 
@@ -101,11 +102,12 @@ class Index extends Component {
         genre={this.state.genre}
         user={this.props.user}
         />}
-        <hr />
+        
         <Feed feed={this.state.feed} deleteHandler={this._deleteHandler}
         user={this.props.user}
         />
       </div>
+    </div>
     );
   }
 }

@@ -19,7 +19,7 @@ body {
     padding: 25px calc((100vw - 960px) / 2);
 // background:white !important;
     @media (max-width: 980px) {
-        padding: 25px 10px;
+        // padding: 25px 10px;
     }
 }
 
@@ -27,9 +27,19 @@ body {
     padding: 10px 15vw 0px ;
 background:white !important;
 // height:100vh;
-    @media (max-width: 980px) {
+    @media (min-width: 850px) and (max-width:1200px) {
         padding: 25px 10px;
     }
+}
+.container-lite-blog {
+    // padding: 10px 15vw 0px ;
+background:white !important;
+@media (min-width: 850px) {
+    height:100vh;
+    display:flex;
+        padding: 25px 10px;
+    }
+  
 }
 .container-dark {
     padding: 25px calc((100vw - 960px) / 2);

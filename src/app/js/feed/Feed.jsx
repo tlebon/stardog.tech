@@ -14,7 +14,7 @@ const Feed = (props) => {
         <span>
           {post.entry}
         </span>&nbsp;&nbsp;
-      Genre:{post.type}
+      <br /> <button>{post.type}</button>&nbsp;&nbsp;
         {props.user && props.user.email===post.email && <button onClick={e=>props.deleteHandler(post)}>Delete</button>}
         &nbsp;&nbsp;
         {props.user && props.user.email===post.email && <button style={{color:"yellow"}} onClick={e=>props.editHandler(post)}>Edit</button>}
