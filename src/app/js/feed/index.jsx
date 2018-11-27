@@ -11,8 +11,11 @@ class Index extends Component {
       entry: '',
       priv: false,
       feed: [],
-      title:"",
-      genre:"Unsorted",
+      title: "",
+      genre: "Unsorted",
+      collectionCheck: false,
+      collection: "",
+      chapter:"",
       error: ""
     }
     this._submitHandler = this._submitHandler.bind(this);
@@ -32,79 +35,125 @@ class Index extends Component {
       })
   }
 
-  _submitHandler(entry,priv,title,genre) {
-    if (this.state.entry==='')return;
-    api
-      .post('/api/feed/entry', {entry,priv,title,genre})
+  _submitHandler(entry, priv, title, genre,collection,chapter) {
+    if (this.state.entry === '') return;
+    if (this.state.collection !== "") {
+      api
+      .post('/api/feed/entry/c', { entry, priv, title, genre,collection,chapter })
+    .then(data => {
+      this.setState({
+        feed: [data, ...this.state.feed],
+        entry: '',
+        priv: false,
+        title: "",
+        genre: "Unsorted",
+        collectionCheck: false,
+        collection: "",
+        chapter:"",
+        error: "",
+      });
+      // console.log(this.state.feed)
+    })
+    .catch(err => {
+      this.setState({
+        error: err.description,
+        entry: ""
+      })
+    })
+    }
+    else {
+      api
+        .post('/api/feed/entry', { entry, priv, title, genre })
       .then(data => {
         this.setState({
-          feed: [data,...this.state.feed],  
+          feed: [data, ...this.state.feed],
+          entry: '',
+          priv: false,
+          title: "",
+          genre: "Unsorted",
           error: "",
-          entry:'',
-          priv:false,
-          title:"",
-          genre:"Unsorted",
         });
         // console.log(this.state.feed)
       })
       .catch(err => {
         this.setState({
           error: err.description,
-          entry:""
+          entry: ""
+        })
+      })
+    }
+  }
+
+  _deleteHandler(entry) {
+    console.log(entry)
+    api
+      .post('/api/feed/entry/d', entry)
+      .then(data => {
+        this.setState({
+          feed: this.state.feed.filter(el => {
+            if (el._id !== data._id) return true;
+            return false;
+          })
+        })
+      })
+      .catch(err => {
+        this.setState({
+          error: err.description,
         })
       })
   }
 
-  _deleteHandler(entry){
-    console.log(entry)
-    api
-    .post('/api/feed/entry/d',entry)
-    .then(data=>{
-      this.setState({
-        feed: this.state.feed.filter(el => {
-          if (el._id !== data._id) return true;
-          return false;
-      })
-    })
-  })
-  .catch(err => {
-    this.setState({
-      error: err.description,
-    })
-  })
-  }
-  _handleChange(e){
+  // this should submit the updated content to the old _id
+  // _editHandler(entry) {
+  //   console.log(entry)
+  //   api
+  //     .post('/api/feed/entry/e', entry)
+  //     .then(data => {
+  //       this.setState({
+  //         feed: this.state.feed.filter(el => {
+  //           if (el._id !== data._id) return true;
+  //           return false;
+  //         })
+  //       })
+  //     })
+  //     .catch(err => {
+  //       this.setState({
+  //         error: err.description,
+  //       })
+  //     })
+  // }
+  _handleChange(e) {
     const target = e.target;
-    const value = target.type === "checkbox"? target.checked:target.value;
+    const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
     this.setState({
-      [name]:value
+      [name]: value
     })
   }
 
-  // _handleCheck(e){
-  //   this.setState({
-  //     priv:e.target.checked
-  //   })
-  // }
   render() {
     return (<div className="container-lite">
       This is the Stories babay! Jounal or create stories here. Let other people interact with them, make them their own. &nbsp; &nbsp;
       Understand that all of our stories come from a common origin.
 
       <div className="container-lite-blog">
-        {this.props.user && <Blog 
-        submitHandler={this._submitHandler} 
-        value={this.state.entry} 
-        handleChange={this._handleChange} 
-        priv={this.state.priv}
-        title={this.state.title}
-        genre={this.state.genre}
-        user={this.props.user}
+        {this.props.user && <Blog
+          submitHandler={this._submitHandler}
+          entry={this.state.entry}
+          handleChange={this._handleChange}
+          priv={this.state.priv}
+          title={this.state.title}
+          genre={this.state.genre}
+          user={this.props.user}
+          collection={this.state.collection}
+          chapter={this.state.chapter}
+          collectionCheck={this.state.collectionCheck}
         />}
-        
-        <Feed feed={this.state.feed} deleteHandler={this._deleteHandler}
-        user={this.props.user}
+
+        <Feed feed={this.state.feed}
+          deleteHandler={this._deleteHandler}
+          editHandler={this._editHandler}
+          user={this.props.user}
         />
       </div>
     </div>
