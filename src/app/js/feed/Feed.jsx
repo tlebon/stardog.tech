@@ -1,44 +1,54 @@
 import React from 'react';
+import Collection from './Collection'
+import Unsorted from './Unsorted'
 const moment = require("moment");
 
+
 const Feed = (props) => {
-  let feed = props.feed.map(post => {
-    // console.log(post.email , props.user)
-    if (post.private===false || (props.user && post.private===true && props.user.email===post.email)){
-      return (
-        <div key={post._id}>
-      {post.title} &nbsp;&nbsp;
-        {moment(post.created_at).fromNow()}
-        &nbsp; by {post.email}
-        <br />
-        <span>
-          {post.entry}
-        </span>&nbsp;&nbsp;
-      <br /> <button>{post.type}</button>&nbsp;&nbsp;
-        {props.user && props.user.email===post.email && <button onClick={e=>props.deleteHandler(post)}>Delete</button>}
-        &nbsp;&nbsp;
-        {props.user && props.user.email===post.email && <button style={{color:"yellow"}} onClick={e=>props.editHandler(post)}>Edit</button>}
-        <hr />
+  if (props.user && props.unsorted) {
+    return (
+      <div className="feed">
+        <div className="navigation container-dark"> 
+          <span onClick={e => props.feedHandler()}>collections
+  </span>&nbsp;
+  <span onClick={e => props.feedHandler()}>unsorted
+  </span>
+        </div>
+        <Unsorted feed={props.feed}
+          feedHandler={props.feedHandler}
+          deleteHandler={props.deleteHandler}
+          editHandler={props.editHandler}
+          user={props.user}
+          unsorted={props.unsorted} />
       </div>
-    );
+    )
   }
-  else return;
-  })
-  if(props.user){
-  return (
-    <div className="feed">
-        
-      {feed}
-    </div>
-  )
-}
-else{
-  return(
-    <div className="feed"style={{height:80+"vh"}}>
-      {feed}
-    </div>
-  )
-}
+  else if (props.user && props.unsorted === false) {
+    return (
+      <div className="feed">
+        <div className="navigation container-dark">
+          <span onClick={e => props.feedHandler()}>collections
+  </span>&nbsp;
+  <span onClick={e => props.feedHandler()}>unsorted
+  </span>
+        </div>
+        <Collection collFeed={props.collFeed}
+          deleteHandler={props.deleteHandler}
+          editHandler={props.editHandler}
+          user={props.user}
+          unsorted={props.unsorted} />
+      </div>
+    )
+  }
+  else {
+    return (
+      <div className="feed" style={{ height: 80 + "vh" }}>
+        <Unsorted
+          feed={props.feed}
+          feedHandler={props.feedHandler} />
+      </div>
+    )
+  }
 };
 
 export default Feed;

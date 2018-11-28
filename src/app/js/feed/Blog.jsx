@@ -31,19 +31,19 @@ const Blog = (props) => {
           <option value="News">News/Informative</option>
         </select>
       </label>
-      <input className="checkbox"
+      <input className="checkbox" 
         type="checkbox"
         name="collectionCheck"
         checked={props.collectionCheck}
         onChange={e => props.handleChange(e)} />
       Part of a Collection? &nbsp; &nbsp;
-     {props.collectionCheck && <input 
+     {props.collectionCheck && <input className="coll-field"
         type="text"
         name="collection"
         value={props.collection}
         placeholder="Which one?"
         onChange={e => props.handleChange(e)}></input>}
-        {props.collectionCheck && <input 
+        {props.collectionCheck && <input className="coll-field"
         type="number"
         name="chapter"
         value={props.chapter}

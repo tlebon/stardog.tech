@@ -9,16 +9,20 @@ class Index extends Component {
 
     this.state = {
       entry: '',
+      loading: true,
       priv: false,
       feed: [],
+      collFeed: [],
       title: "",
       genre: "Unsorted",
       collectionCheck: false,
       collection: "",
-      chapter:"",
+      chapter: "",
+      unsorted: true,
       error: ""
     }
     this._submitHandler = this._submitHandler.bind(this);
+    this._feedHandler = this._feedHandler.bind(this);
     this._handleChange = this._handleChange.bind(this);
     this._deleteHandler = this._deleteHandler.bind(this);
     // this._handleCheck = this._handleCheck.bind(this);
@@ -28,59 +32,61 @@ class Index extends Component {
     api
       .get(`/api/feed/`)
       .then(data => {
+        console.log(data)
         this.setState({
-          feed: data,
+          feed: data.posts,
+          collFeed: data.collects,
           loading: false
         })
       })
   }
 
-  _submitHandler(entry, priv, title, genre,collection,chapter) {
+  _submitHandler(entry, priv, title, genre, collection, chapter) {
     if (this.state.entry === '') return;
     if (this.state.collection !== "") {
       api
-      .post('/api/feed/entry/c', { entry, priv, title, genre,collection,chapter })
-    .then(data => {
-      this.setState({
-        feed: [data, ...this.state.feed],
-        entry: '',
-        priv: false,
-        title: "",
-        genre: "Unsorted",
-        collectionCheck: false,
-        collection: "",
-        chapter:"",
-        error: "",
-      });
-      // console.log(this.state.feed)
-    })
-    .catch(err => {
-      this.setState({
-        error: err.description,
-        entry: ""
-      })
-    })
+        .post('/api/feed/entry/c', { entry, priv, title, genre, collection, chapter })
+        .then(data => {
+          this.setState({
+            collFeed: [data, ...this.state.collFeed],
+            entry: '',
+            priv: false,
+            title: "",
+            genre: "Unsorted",
+            collectionCheck: false,
+            collection: "",
+            chapter: "",
+            error: "",
+          });
+          // console.log(this.state.feed)
+        })
+        .catch(err => {
+          this.setState({
+            error: err.description,
+            entry: ""
+          })
+        })
     }
     else {
       api
         .post('/api/feed/entry', { entry, priv, title, genre })
-      .then(data => {
-        this.setState({
-          feed: [data, ...this.state.feed],
-          entry: '',
-          priv: false,
-          title: "",
-          genre: "Unsorted",
-          error: "",
-        });
-        // console.log(this.state.feed)
-      })
-      .catch(err => {
-        this.setState({
-          error: err.description,
-          entry: ""
+        .then(data => {
+          this.setState({
+            feed: [data, ...this.state.feed],
+            entry: '',
+            priv: false,
+            title: "",
+            genre: "Unsorted",
+            error: "",
+          });
+          // console.log(this.state.feed)
         })
-      })
+        .catch(err => {
+          this.setState({
+            error: err.description,
+            entry: ""
+          })
+        })
     }
   }
 
@@ -131,33 +137,48 @@ class Index extends Component {
     })
   }
 
+  _feedHandler() {
+    this.setState({
+      unsorted: !this.state.unsorted
+    })
+  }
+
   render() {
-    return (<div className="container-lite">
-      This is the Stories babay! Jounal or create stories here. Let other people interact with them, make them their own. &nbsp; &nbsp;
-      Understand that all of our stories come from a common origin.
+    if (this.state.loading === true) {
+      return <div>loading...</div>
+    }
+    else {
 
+      return (<div className="container-lite">
+        This is the Stories babay! Jounal or create stories here. Let other people interact with them, make them their own. &nbsp; &nbsp;
+        Understand that all of our stories come from a common origin.
+  
       <div className="container-lite-blog">
-        {this.props.user && <Blog
-          submitHandler={this._submitHandler}
-          entry={this.state.entry}
-          handleChange={this._handleChange}
-          priv={this.state.priv}
-          title={this.state.title}
-          genre={this.state.genre}
-          user={this.props.user}
-          collection={this.state.collection}
-          chapter={this.state.chapter}
-          collectionCheck={this.state.collectionCheck}
-        />}
+          {this.props.user && <Blog
+            submitHandler={this._submitHandler}
+            entry={this.state.entry}
+            handleChange={this._handleChange}
+            priv={this.state.priv}
+            title={this.state.title}
+            genre={this.state.genre}
+            user={this.props.user}
+            collection={this.state.collection}
+            chapter={this.state.chapter}
+            collectionCheck={this.state.collectionCheck}
+          />}
 
-        <Feed feed={this.state.feed}
-          deleteHandler={this._deleteHandler}
-          editHandler={this._editHandler}
-          user={this.props.user}
-        />
+          <Feed feed={this.state.feed}
+            collFeed={this.state.collFeed}
+            feedHandler={this._feedHandler}
+            deleteHandler={this._deleteHandler}
+            editHandler={this._editHandler}
+            user={this.props.user}
+            unsorted={this.state.unsorted}
+          />
+        </div>
       </div>
-    </div>
-    );
+      );
+    }
   }
 }
 

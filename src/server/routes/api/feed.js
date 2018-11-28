@@ -46,14 +46,19 @@ router.post('/entry/c', (req, res, next) => {
 
 //gets the feed
 router.get('/', (req, res, next) => {
+  let posts = '';
+  let collects = '';
   Post.find({})
     .sort([["created_at", -1]])
     .then(data => {
-      res.send(data)
-      // Coll.find({})
-      //   .sort([["created_at", -1]])
-      //   .then(data => {
-      //     res.send(data);})
+      posts = data;
+      console.log(posts)
+    })
+  Coll.find({})
+    .sort([["created_at", -1]])
+    .then(data => {
+      collects = data;
+      res.send({ posts, collects });
     })
     .catch(err => {
       console.log(err);
