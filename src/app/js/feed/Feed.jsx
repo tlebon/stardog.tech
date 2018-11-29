@@ -1,17 +1,18 @@
 import React from 'react';
 import Collection from './Collection'
 import Unsorted from './Unsorted'
-const moment = require("moment");
+
 
 
 const Feed = (props) => {
   if (props.user && props.unsorted) {
     return (
       <div className="feed">
-        <div className="navigation container-dark"> 
+        <div className="blog-header"> 
+  <span>unsorted
+  </span>
+  &nbsp; ||&nbsp;
           <span onClick={e => props.feedHandler()}>collections
-  </span>&nbsp;
-  <span onClick={e => props.feedHandler()}>unsorted
   </span>
         </div>
         <Unsorted feed={props.feed}
@@ -26,10 +27,11 @@ const Feed = (props) => {
   else if (props.user && props.unsorted === false) {
     return (
       <div className="feed">
-        <div className="navigation container-dark">
-          <span onClick={e => props.feedHandler()}>collections
-  </span>&nbsp;
+        <div className="blog-header">
   <span onClick={e => props.feedHandler()}>unsorted
+  </span>
+  &nbsp; ||&nbsp;
+          <span >collections
   </span>
         </div>
         <Collection collFeed={props.collFeed}
