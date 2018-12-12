@@ -46,7 +46,12 @@ class Index extends Component {
   }
 
   _submitHandler(entry, priv, title, genre, collection, chapter) {
-    if (this.state.entry === '') return;
+    if (this.state.entry === '' ||this.state.entry ==null){
+      this.setState({
+        error:"Enter a post!"
+      })
+    // return  setTimeout((this.setState({error:''})),3000)
+    }
     if (this.state.collection === '' || this.state.collectionRes === "") {
       api
         .post('/api/feed/entry', { entry, priv, title, genre })
@@ -241,6 +246,7 @@ class Index extends Component {
             handleChange={this._handleChange}
             handleCollectionSearch={this._handleCollectionSearch}
             priv={this.state.priv}
+            error={this.state.error}
             title={this.state.title}
             genre={this.state.genre}
             user={this.props.user}

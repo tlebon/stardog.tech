@@ -56,6 +56,8 @@ const Blog = (props) => {
         onChange={e => props.handleChange(e)}></input>}
       <button onClick={() => props.submitHandler(props.entry, props.priv, props.title, props.genre, props.collection,props.chapter)}>Submit</button><br/>
         {props.collectionRes && props.collectionCheck && dropdown}
+        <br/>
+        {props.error!=="" && <button>{props.error}</button>}
     </div>
   );
 };
