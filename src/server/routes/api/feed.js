@@ -117,4 +117,17 @@ router.post('/entry/d', (req, res, next) => {
     })
 })
 
+//deletes an entry from a collection
+router.post('/entry/c/d', (req, res, next) => {
+  let del = req.body;
+  Coll.deleteOne({ _id: del._id }, )
+    .then(data => {
+      console.log(data)
+      res.send({ _id: del._id });
+    })
+    .catch(err => {
+      console.log(err);
+    })
+})
+
 module.exports = router;

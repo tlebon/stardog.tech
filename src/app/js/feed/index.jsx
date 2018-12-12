@@ -97,8 +97,8 @@ class Index extends Component {
         .put('/api/feed/entry/c/', { entry, priv, title, genre, collection, chapter })
         .then(data => {
           this.setState({
-            collFeed: this.state.collFeed.filter(item=>{
-              if (data._id!==item._id) return true;
+            collFeed: this.state.collFeed.filter(item => {
+              if (data._id !== item._id) return true;
               return false;
             }).concat(data),
             entry: '',
@@ -124,22 +124,42 @@ class Index extends Component {
   }
 
   _deleteHandler(entry) {
-    console.log(entry)
-    api
-      .post('/api/feed/entry/d', entry)
-      .then(data => {
-        this.setState({
-          feed: this.state.feed.filter(el => {
-            if (el._id !== data._id) return true;
-            return false;
+    console.log(this.state.unsorted)
+    if (this.state.unsorted == true) {
+      api
+        .post('/api/feed/entry/d', entry)
+        .then(data => {
+          this.setState({
+            feed: this.state.feed.filter(el => {
+              if (el._id !== data._id) return true;
+              return false;
+            })
           })
         })
-      })
-      .catch(err => {
-        this.setState({
-          error: err.description,
+        .catch(err => {
+          this.setState({
+            error: err.description,
+          })
         })
-      })
+    }
+    if (this.state.unsorted === false) {
+      api
+        .post('/api/feed/entry/c/d', entry)
+        .then(data => {
+          this.setState({
+            collFeed: this.state.collFeed.filter(el => {
+              if (el._id !== data._id) return true;
+              return false;
+            })
+          })
+        })
+        .catch(err => {
+          this.setState({
+            error: err.description,
+          })
+        })
+    }
+
   }
 
   // this should submit the updated content to the old _id
