@@ -3,7 +3,7 @@ const Schema = mongoose.Schema
 
 const postSchema = new Schema({
   email: {
-    type: String,    //make a user.ref
+    type: String,    //make a user.ref and populate 
     required: false,
     default: 'Anonymous'
   },

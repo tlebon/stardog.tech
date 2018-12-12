@@ -118,15 +118,37 @@ button {
         padding-bottom:0px;
     }
 }
+.coll-field{
+    // resize:none;
+    border-radius:5px;
+    // height:300px;
+    width: 30%;
+    font-size: 14px;
+    border: 1px solid black;
+
+    &:focus{
+        border: 2px solid #555;
+        outline:none;
+        padding-bottom:0px;
+    }
+}
 
 .feed{
     overflow: auto;
     height: 80%;
     border: 1px solid black;
     border-radius:5px;
-    width:100%;
+    width:80%;
     white-space: pre-wrap;
     @media (max-width: 850px) {
         height:342px;
         }
+}
+
+.dropdown{
+    border:black solid 1px;
+    border-radius:5px;
+    margin-bottom: .5px;
+    // border-bottom:black solid .5px;
+    width:60%;
 }

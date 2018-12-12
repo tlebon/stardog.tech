@@ -1,6 +1,11 @@
 import React from 'react';
 
 const Blog = (props) => {
+  let dropdown= props.collectionRes.map((item,i)=>{
+    return(<div className="dropdown" key={i} onClick={e=>props.handleCollectionUpdate(e)}>{item.coll}
+    </div>
+    )
+  })
   return (
     <div >
       <input className="title-field"
@@ -36,20 +41,21 @@ const Blog = (props) => {
         name="collectionCheck"
         checked={props.collectionCheck}
         onChange={e => props.handleChange(e)} />
-      Part of a Collection? &nbsp; &nbsp;
+      Part of a Collection? <br />
      {props.collectionCheck && <input className="coll-field"
         type="text"
         name="collection"
         value={props.collection}
         placeholder="Which one?"
-        onChange={e => props.handleChange(e)}></input>}
+        onChange={e => props.handleCollectionSearch(e)}></input>}
         {props.collectionCheck && <input className="coll-field"
         type="number"
         name="chapter"
         value={props.chapter}
         placeholder="What Chapter?"
         onChange={e => props.handleChange(e)}></input>}
-      <button onClick={() => props.submitHandler(props.entry, props.priv, props.title, props.type, props.collection,props.chapter)}>Let it be Done</button>
+      <button onClick={() => props.submitHandler(props.entry, props.priv, props.title, props.genre, props.collection,props.chapter)}>Submit</button><br/>
+        {props.collectionRes && props.collectionCheck && dropdown}
     </div>
   );
 };
