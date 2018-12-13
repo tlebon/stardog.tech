@@ -46,6 +46,7 @@ const Feed = (props) => {
     return (
       <div className="feed" style={{ height: 80 + "vh" }}>
         <Unsorted
+        loading={props.loading}
           feed={props.feed}
           feedHandler={props.feedHandler} />
       </div>

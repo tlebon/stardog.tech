@@ -13,9 +13,9 @@ const Collection = (props) => {
           <br />
           {entry.entry}
           <br /> <button>{entry.type}</button>&nbsp;&nbsp;
-          {props.user && props.user.email === post.email && <button onClick={e => props.deleteHandler(post)}>Delete</button>}
+          {props.user && props.user.email === post.email && <button onClick={e => props.deleteHandler(entry,post)}>Delete</button>}
           &nbsp;&nbsp;
-        {props.user && props.user.email === post.email && <button style={{ color: "yellow" }} onClick={e => props.editHandler(post)}>Edit</button>}
+        {props.user && props.user.email === post.email && <button style={{ color: "yellow" }} onClick={e => props.editHandler(entry)}>Edit</button>}
           <hr />
         </div>
       )

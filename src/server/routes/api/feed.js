@@ -84,19 +84,19 @@ router.put('/entry/c', (req, res, next) => {
 
 //gets the feed
 router.get('/', (req, res, next) => {
-  let posts = '';
-  let collects = '';
+  let posts = [];
+  let collects = [];
   Post.find({})
     .sort([["created_at", -1]])
     .then(data => {
       posts = data;
       // console.log(posts)
-    })
-  Coll.find({})
-    .sort([["created_at", -1]])
-    .then(data => {
-      collects = data;
-      res.send({ posts, collects });
+      return Coll.find({})
+        .sort([["updated_at", -1]])
+        .then(data => {
+          collects = data;
+          res.send({ posts, collects });
+        })
     })
     .catch(err => {
       console.log(err);
@@ -117,17 +117,34 @@ router.post('/entry/d', (req, res, next) => {
     })
 })
 
-//deletes an entry from a collection
+//deletes an entry from a collection or a whole collection
 router.post('/entry/c/d', (req, res, next) => {
-  let del = req.body;
-  Coll.deleteOne({ _id: del._id }, )
-    .then(data => {
-      console.log(data)
-      res.send({ _id: del._id });
-    })
-    .catch(err => {
-      console.log(err);
-    })
+
+  const entry = req.body._id[0];
+  const post = req.body._id[1]
+  const coll = req.body._id
+  console.log(entry, post, coll)
+  if (coll.length == 2) {
+    console.log("working if statment")
+    Coll.findByIdAndUpdate({ _id: post }, { $pull: { entries: { _id: entry } } }, { new: true })
+      .then(data => {
+        console.log(data)
+        res.send({ _id: entry });
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+  else {
+    Coll.deleteOne({ _id: coll })
+      .then(data => {
+        console.log(data)
+        res.send({ _id: coll });
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
 })
 
 module.exports = router;

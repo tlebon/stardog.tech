@@ -46,11 +46,11 @@ class Index extends Component {
   }
 
   _submitHandler(entry, priv, title, genre, collection, chapter) {
-    if (this.state.entry === '' ||this.state.entry ==null){
+    if (this.state.entry === '' || this.state.entry == null) {
       this.setState({
-        error:"Enter a post!"
+        error: "Enter a post!"
       })
-    // return  setTimeout((this.setState({error:''})),3000)
+      // return  setTimeout((this.setState({error:''})),3000)
     }
     if (this.state.collection === '' || this.state.collectionRes === "") {
       api
@@ -102,10 +102,10 @@ class Index extends Component {
         .put('/api/feed/entry/c/', { entry, priv, title, genre, collection, chapter })
         .then(data => {
           this.setState({
-            collFeed: this.state.collFeed.filter(item => {
+            collFeed: [data, ...this.state.collFeed.filter(item => {
               if (data._id !== item._id) return true;
               return false;
-            }).concat(data),
+            })],
             entry: '',
             priv: false,
             title: "",
@@ -128,8 +128,8 @@ class Index extends Component {
     }
   }
 
-  _deleteHandler(entry) {
-    console.log(this.state.unsorted)
+  _deleteHandler(entry, post) {
+    console.log('entry', entry, 'post', post)
     if (this.state.unsorted == true) {
       api
         .post('/api/feed/entry/d', entry)
@@ -149,7 +149,7 @@ class Index extends Component {
     }
     if (this.state.unsorted === false) {
       api
-        .post('/api/feed/entry/c/d', entry)
+        .post('/api/feed/entry/c/d', entry, post)
         .then(data => {
           this.setState({
             collFeed: this.state.collFeed.filter(el => {
@@ -198,10 +198,8 @@ class Index extends Component {
     this._handleChange(e);
     if (this.state.collection === '') return;
     else {
-      let value = e.target.value
       let collection = e.target.value
-
-      console.log("this.state.collection", collection)
+      // console.log("this.state.collection", collection)
       api.post('/api/feed/entry/c', { collection })
         .then((data) => {
           console.log(data)
@@ -264,6 +262,7 @@ class Index extends Component {
             editHandler={this._editHandler}
             user={this.props.user}
             unsorted={this.state.unsorted}
+            loading={this.state.loading}
           />
         </div>
       </div>
