@@ -6,7 +6,11 @@ Originally it was going to be a simple portfolio site but now the plan is to use
 
 As it has new features added I will update the readme accordingly. :)
 
-19/11/2018: The blog feed is working now! It is a community blog for any user to post on. It will have some new features added to it still but currently it works and you can set a post to private for it to only show up for you. In the next few days the private feed will also be added to your profile page. Deleting works, but editing has not been implemented. As the website has one working feature I will try to add it to the webpage now. Watch for more changes to come. :) -Stardog.
+## Current Update
+
+14/12/2018: Nearly a month since my last update! The blog now has a new feature- Collections! Some of the styling and small things may change but collections are now working completely! the Feed navbar on the blog has a toggle to choose to look at either collections or unsorted posts. 
+A collection allows groupings of posts- so you can post a story now. You can find your old collection and add to it and delete a single story from the collection or even the whole thing!  I have several ideas where to go from here but first will likely be editing posts. But expect some other cool things too. Until next time! - StarDog.
+
 
  ## Have a nice day!
 
@@ -23,3 +27,6 @@ this is using the 'React + express starter template', by Lukas
 -   Additionally, we use babel to transform our code
 
 
+ ## Old Updates!
+
+19/11/2018: The blog feed is working now! It is a community blog for any user to post on. It will have some new features added to it still but currently it works and you can set a post to private for it to only show up for you. In the next few days the private feed will also be added to your profile page. Deleting works, but editing has not been implemented. As the website has one working feature I will try to add it to the webpage now. Watch for more changes to come. :) -Stardog.
