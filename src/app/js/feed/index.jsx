@@ -45,6 +45,8 @@ class Index extends Component {
       })
   }
 
+
+//submits collections or entries or adds to a current collection (if selected)
   _submitHandler(entry, priv, title, genre, collection, chapter) {
     if (this.state.entry === '' || this.state.entry == null) {
       this.setState({
@@ -128,8 +130,9 @@ class Index extends Component {
     }
   }
 
+// deletes collections or entries from the feed
   _deleteHandler(entry, post) {
-    console.log('entry', entry, 'post', post)
+    // console.log('entry', entry, 'post', post)
     if (this.state.unsorted == true) {
       api
         .post('/api/feed/entry/d', entry)
@@ -151,12 +154,39 @@ class Index extends Component {
       api
         .post('/api/feed/entry/c/d', entry, post)
         .then(data => {
-          this.setState({
-            collFeed: this.state.collFeed.filter(el => {
-              if (el._id !== data._id) return true;
-              return false;
+          // console.log("data", data)
+          if (data.coll) {
+            this.setState({
+              collFeed: [data, ...this.state.collFeed.filter(post => {
+                if (post._id !== data._id) return true;
+                return false;
+              })]
+              //NOTE:we can apply a sort to this later to make sure the updated post isnt moved to the front
             })
-          })
+          }
+          else {
+            this.setState({
+              collFeed:this.state.collFeed.filter(post=>{
+                if(post._id!==data._id) return true;
+                return false;
+              })
+            })
+          }
+          // Saved for history to see if this is viable- trying to nested filter or double filter in a for each. 
+          //decided to use the same method as the submit, dont know why i didnt think of it before
+
+          // forEach(el => {
+          //   // if (post){
+          //   console.log("el", el, "post", post, "entry", entry)
+          //   el.entries.filter(entry => {
+          //     if (entry._id !== data._id) return true;
+          //     return false;
+          //   })
+          //   el.filter(entry => {
+          //     if (entry._id !== data._id) return true;
+          //     return false;
+          //   })
+          // })
         })
         .catch(err => {
           this.setState({
@@ -236,7 +266,7 @@ class Index extends Component {
       return (<div className="container-lite">
         This is the Stories babay! Jounal or create stories here. Let other people interact with them, make them their own. &nbsp; &nbsp;
         Understand that all of our stories come from a common origin.
-
+  
       <div className="container-lite-blog">
           {this.props.user && <Blog
             submitHandler={this._submitHandler}

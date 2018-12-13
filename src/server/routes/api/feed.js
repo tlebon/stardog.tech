@@ -123,13 +123,15 @@ router.post('/entry/c/d', (req, res, next) => {
   const entry = req.body._id[0];
   const post = req.body._id[1]
   const coll = req.body._id
+
+
+  //this isnt properly returning because of the if/else.- fixed with promise.resolve()
   console.log(entry, post, coll)
   if (coll.length == 2) {
-    console.log("working if statment")
+    // console.log("working if statment")
     Coll.findByIdAndUpdate({ _id: post }, { $pull: { entries: { _id: entry } } }, { new: true })
       .then(data => {
-        console.log(data)
-        res.send({ _id: entry });
+        res.send(data);
       })
       .catch(err => {
         console.log(err);
@@ -139,12 +141,14 @@ router.post('/entry/c/d', (req, res, next) => {
     Coll.deleteOne({ _id: coll })
       .then(data => {
         console.log(data)
+        // delId=coll
         res.send({ _id: coll });
       })
       .catch(err => {
         console.log(err);
       })
   }
+  return Promise.resolve()
 })
 
 module.exports = router;
