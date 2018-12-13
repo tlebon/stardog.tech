@@ -9,7 +9,7 @@ const Home = props => {
             <br />
             I dont know where it will go, but please feel free to join me on my journey. 
             <br />
-            I apologize if it is broken or weird. It is a work in progress.
+            The Blog feature is now <b>mostly</b> working! Come check it out, post a story or a journal.
             <br />
             {/* <img src={Doggie} alt="doggie" width="40%" /> */}
         {/* <div className="earth"></div> */}
