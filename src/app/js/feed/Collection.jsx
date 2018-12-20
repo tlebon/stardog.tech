@@ -3,9 +3,6 @@ const moment = require("moment");
 
 const Collection = (props) => {
   let feed = props.collFeed.map(post => {
-    // console.log(props.collFeed)
-    // if (post.entries.private === false || (props.user && post.entries.private === true && props.user.email === post.email)) {
-    // for (let entry of post.entries) {
     let entry = post.entries.map(entry => {
       return (
         <div key={entry._id}>
@@ -20,7 +17,7 @@ const Collection = (props) => {
         </div>
       )
     })
-    return (
+   if((props.profile && post.email==props.user.email) || props.profile==null){ return (
       <div key={post._id}>
         <h3>{post.coll}
         </h3>
@@ -34,11 +31,10 @@ const Collection = (props) => {
         {props.user && props.user.email === post.email && <button style={{ color: "yellow" }} onClick={e => props.editHandler(post)}>Edit</button>}
         <hr /></div>
     )
-    // }
-
+   }
+   else return
   });
-  // }
-  // else return;
+  
 
   return (<div>
     {feed}

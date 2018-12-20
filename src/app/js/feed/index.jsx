@@ -265,11 +265,12 @@ class Index extends Component {
     else {
 
       return (<div className="container-lite">
-        This is the Stories babay! Jounal or create stories here. Let other people interact with them, make them their own. &nbsp; &nbsp;
-        Understand that all of our stories come from a common origin. &nbsp; &nbsp;
-{this.props.user !==true && <i><b>Sign in to post your own story</b></i>}
+        {this.props.profile && <span>This is your personal blog feed. Find all of your posts on this page.</span>}
+       {this.props.profile !== true && <span> These are the Stories babay! Jounal or create stories here. Let other people interact with them, make them their own.&nbsp;
+        Understand that all of our stories come from a common origin. &nbsp; &nbsp;</span>}
+{this.props.user ==null && <i><b>Sign in to post your own story</b></i>}
       <div className="container-lite-blog">
-          {this.props.user && <Blog
+          {this.props.profile!==true && this.props.user && <Blog
             submitHandler={this._submitHandler}
             entry={this.state.entry}
             handleChange={this._handleChange}
@@ -286,7 +287,8 @@ class Index extends Component {
             handleCollectionUpdate={this._handleCollectionUpdate}
           />}
 
-          <Feed feed={this.state.feed}
+          <Feed profile={this.props.profile}
+          feed={this.state.feed}
             collFeed={this.state.collFeed}
             feedHandler={this._feedHandler}
             deleteHandler={this._deleteHandler}

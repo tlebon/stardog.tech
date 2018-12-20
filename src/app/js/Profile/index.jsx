@@ -1,17 +1,14 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
-import Feed from '../feed/Feed'
+// import Feed from '../feed/Feed'
 import api from "../utils/api"
-import {_feedHandler} from "../feed/index"
+import Index from "../feed/index"
 
 class Profile extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            feed: [],
-            collFeed: [],
-            loading: true,
-            unsorted: true
+         profile: true
         }
     }
 
@@ -27,6 +24,10 @@ class Profile extends Component {
                 })
             })
     }
+componentWillUnmount(){
+    this.setState({profile:false})
+}
+
     render() {
         if (this.state.loading) return <div>Loading..</div>
         if (!this.props.user) return <Redirect to="/auth/sign-in" /> // this is actually the protection
@@ -38,15 +39,9 @@ class Profile extends Component {
                 {this.props.user._id}
                 <br />
                 {this.props.user.email}
-            </div>
-            <Feed feed={this.state.feed}
-            collFeed={this.state.collFeed}
-            // feedHandler={this._feedHandler}
-         //   deleteHandler={this._deleteHandler}
-          //  editHandler={this._editHandler} 
-            user={this.props.user}
-            unsorted={this.state.unsorted}
-            loading={this.state.loading}/>
+            </div><div className="profile-blog">
+            <Index user={this.props.user} profile={this.state.profile}/>
+        </div>
         </div>
         )
     }

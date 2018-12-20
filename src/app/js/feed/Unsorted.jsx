@@ -4,6 +4,7 @@ const moment = require("moment");
 const Unsorted = (props) => {
   let feed = props.feed.map(post => {
     // console.log(post.email , props.user)
+    if((props.profile && post.email==props.user.email) || props.profile==null){
     if (post.private === false || (props.user && post.private === true && props.user.email === post.email)) {
       return (
         <div key={post._id}>
@@ -22,7 +23,7 @@ const Unsorted = (props) => {
           </div>
         );
       }
-      else return;
+      else return;} 
     })
     if (props.loading==true) return (<div>Loading...</div>)
     else{return (<div>

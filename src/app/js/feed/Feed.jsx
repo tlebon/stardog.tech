@@ -5,7 +5,7 @@ import Unsorted from './Unsorted'
 
 
 const Feed = (props) => {
-  if ( props.unsorted) {
+  if (props.unsorted) {
     return (
       <div className="feed">
         <div className="blog-header">
@@ -15,7 +15,8 @@ const Feed = (props) => {
           <span onClick={e => props.feedHandler()}>collections
   </span>
         </div>
-        <Unsorted feed={props.feed}
+        <Unsorted profile={props.profile}
+        feed={props.feed}
           feedHandler={props.feedHandler}
           deleteHandler={props.deleteHandler}
           editHandler={props.editHandler}
@@ -34,7 +35,8 @@ const Feed = (props) => {
           <span>collections
   </span>
         </div>
-        <Collection collFeed={props.collFeed}
+        <Collection profile={props.profile}
+        collFeed={props.collFeed}
           deleteHandler={props.deleteHandler}
           editHandler={props.editHandler}
           user={props.user}
