@@ -24,9 +24,6 @@ class Profile extends Component {
                 })
             })
     }
-componentWillUnmount(){
-    this.setState({profile:false})
-}
 
     render() {
         if (this.state.loading) return <div>Loading..</div>
