@@ -353,11 +353,10 @@ class Index extends Component {
             error={this.state.error}
             editTitle={this.state.titleE}
             editGenre={this.state.genreE}
-            user={this.props.user}
             editCollection={this.state.collectionE}
             editChapter={this.state.chapterE}
             editCollectionCheck={this.state.collectionCheckE}
-            editCollectionRes={this.state.editCollectionRes}
+            editCollectionRes={this.state.collectionResE}
             handleCollectionUpdate={this._handleCollectionUpdate}
           />
         </div>

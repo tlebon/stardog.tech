@@ -6,10 +6,11 @@ const Unsorted = (props) => {
   let feed = props.feed.map(post => {
     // console.log(post.email , props.user)
     if (props.edit == post._id) {
-      return (<Blog entry ={props.editEntry || post.entry}  
-      handleChange={props.handleChange}
-      editHandler={props.editHandler}
-      edit={props.edit}
+      return (<Blog key={post._id}
+        entry={props.editEntry || post.entry}
+        handleChange={props.handleChange}
+        editHandler={props.editHandler}
+        edit={props.edit}
         handleCollectionSearch={props.handleCollectionSearch}
         priv={props.editPriv || post.private}
         error={props.error}
@@ -21,7 +22,7 @@ const Unsorted = (props) => {
         collectionCheck={props.editCollectionCheck}
         submitHandler={props.editSubmitHandler}
         collectionRes={props.editCollectionRes}
-        handleCollectionUpdate={props.handleCollectionUpdate}/>)
+        handleCollectionUpdate={props.handleCollectionUpdate} />)
     }
     if ((props.profile && post.email == props.user.email) || props.profile == null) {
       if (post.private === false || (props.user && post.private === true && props.user.email === post.email)) {
