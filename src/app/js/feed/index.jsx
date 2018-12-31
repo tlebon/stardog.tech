@@ -19,11 +19,23 @@ class Index extends Component {
       collection: "",
       collectionRes: [],
       chapter: '',
+      //states for edit pop up
+      edit: null,
+      entryE: '',
+      titleE: "",
+      editGenre: "Unsorted",
+      collectionCheckE: false,
+      collectionE: "",
+      collectionResE: [],
+      editChapter: '',
+      //
       unsorted: true,
       found: false,
       error: ""
     }
     this._submitHandler = this._submitHandler.bind(this);
+    this._editSubmitHandler = this._editSubmitHandler.bind(this);
+    this._editHandler = this._editHandler.bind(this);
     this._feedHandler = this._feedHandler.bind(this);
     this._handleChange = this._handleChange.bind(this);
     this._handleCollectionSearch = this._handleCollectionSearch.bind(this);
@@ -175,7 +187,7 @@ class Index extends Component {
           // Saved for history to see if this is viable- trying to nested filter or double filter in a for each. 
           //decided to use the same method as the submit, dont know why i didnt think of it before
 
-          // forEach(el => {
+          // filter(el => {
           //   // if (post){
           //   console.log("el", el, "post", post, "entry", entry)
           //   el.entries.filter(entry => {
@@ -198,58 +210,93 @@ class Index extends Component {
   }
 
   // this should submit the updated content to the old _id
-  // _editHandler(entry) {
-  //   console.log(entry)
-  //   api
-  //     .post('/api/feed/entry/e', entry)
-  //     .then(data => {
-  //       this.setState({
-  //         feed: this.state.feed.filter(el => {
-  //           if (el._id !== data._id) return true;
-  //           return false;
-  //         })
-  //       })
-  //     })
-  //     .catch(err => {
-  //       this.setState({
-  //         error: err.description,
-  //       })
-  //     })
-  // }
+  _editHandler(post) {
+    this.setState({
+      edit: post
+    })
+  }
+
+  _editSubmitHandler(entry, post) {
+    console.log(entry)
+    api
+      .post('/api/feed/entry/e', entry, post)
+      .then(data => {
+        this.setState({
+          edit: null,
+          feed: this.state.feed.filter(el => {
+            if (el._id !== data._id) return true;
+            return false;
+          })
+        })
+      })
+      .catch(err => {
+        this.setState({
+          error: err.description,
+        })
+      })
+  }
   _handleChange(e) {
     const target = e.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
+    if (this.state.edit){
+      this.setState({
+        [name+"E"]:value
+      })
+    }
+    else{
     this.setState({
       [name]: value
-    })
+    })}
   }
   _handleCollectionSearch(e) {
     console.log(e.target.value)
     this._handleChange(e);
-
-
     let collection = e.target.value
-    console.log("this.state.collection", collection)
-    api.post('/api/feed/entry/c', { collection })
-      .then((data) => {
-        console.log(data)
-        this.setState({
-          collectionRes: data,
-        })
-      })
-      .catch(err => {
-        console.log(err)
-      })
 
+    if (this.state.edit) {
+      console.log("this.state.collection", collection)
+      api.post('/api/feed/entry/c', { collection })
+        .then((data) => {
+          console.log(data)
+          this.setState({
+            collectionResE: data,
+          })
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
+    else {
+      console.log("this.state.collection", collection)
+      api.post('/api/feed/entry/c', { collection })
+        .then((data) => {
+          console.log(data)
+          this.setState({
+            collectionRes: data,
+          })
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
   }
 
   _handleCollectionUpdate(e) {
-    this.setState({
-      collection: e.target.innerHTML,
-      found: true,
-      collectionRes: [],
-    })
+    if (this.state.edit) {
+      this.setState({
+        collectionE: e.target.inerHTML,
+        found: true,
+        collectionResE: [],
+      })
+    }
+    else {
+      this.setState({
+        collection: e.target.innerHTML,
+        found: true,
+        collectionRes: [],
+      })
+    }
     // console.log('found?', this.state.found)
   }
   _feedHandler() {
@@ -266,11 +313,11 @@ class Index extends Component {
 
       return (<div className="container-lite">
         {this.props.profile && <span>This is your personal blog feed. Find all of your posts on this page.</span>}
-       {this.props.profile !== true && <span> These are the Stories babay! Jounal or create stories here. Let other people interact with them, make them their own.&nbsp;
+        {this.props.profile !== true && <span> These are the Stories babay! Jounal or create stories here. Let other people interact with them, make them their own.&nbsp;
         Understand that all of our stories come from a common origin. &nbsp; &nbsp;</span>}
-{this.props.user ==null && <i><b>Sign in to post your own story</b></i>}
-      <div className="container-lite-blog">
-          {this.props.profile!==true && this.props.user && <Blog
+        {this.props.user == null && <i><b>Sign in to post your own story</b></i>}
+        <div className="container-lite-blog">
+          {this.props.profile !== true && this.props.user && <Blog
             submitHandler={this._submitHandler}
             entry={this.state.entry}
             handleChange={this._handleChange}
@@ -288,14 +335,30 @@ class Index extends Component {
           />}
 
           <Feed profile={this.props.profile}
-          feed={this.state.feed}
+            feed={this.state.feed}
             collFeed={this.state.collFeed}
             feedHandler={this._feedHandler}
             deleteHandler={this._deleteHandler}
-            editHandler={this._editHandler}
             user={this.props.user}
             unsorted={this.state.unsorted}
             loading={this.state.loading}
+            editHandler={this._editHandler}
+            edit={this.state.edit}
+            editSubmitHandler={this._editSubmitHandler}
+            //moved over for the purposes of the edit button, some are unneeded
+            editEntry={this.state.entryE}
+            handleChange={this._handleChange}
+            handleCollectionSearch={this._handleCollectionSearch}
+            editPriv={this.state.privE}
+            error={this.state.error}
+            editTitle={this.state.titleE}
+            editGenre={this.state.genreE}
+            user={this.props.user}
+            editCollection={this.state.collectionE}
+            editChapter={this.state.chapterE}
+            editCollectionCheck={this.state.collectionCheckE}
+            editCollectionRes={this.state.editCollectionRes}
+            handleCollectionUpdate={this._handleCollectionUpdate}
           />
         </div>
       </div>

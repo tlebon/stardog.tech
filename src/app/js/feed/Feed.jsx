@@ -16,12 +16,28 @@ const Feed = (props) => {
   </span>
         </div>
         <Unsorted profile={props.profile}
-        feed={props.feed}
+          feed={props.feed}
+          edit={props.edit}
           feedHandler={props.feedHandler}
           deleteHandler={props.deleteHandler}
           editHandler={props.editHandler}
+          editSubmitHandler={props.editSubmitHandler}
           user={props.user}
-          unsorted={props.unsorted} />
+          unsorted={props.unsorted}
+          //edit button states
+          handleChange={props.handleChange}
+          handleCollectionSearch={props.handleCollectionSearch}
+          editEntry={props.editEntry}
+          editPriv={props.editPriv}
+          error={props.error}
+          editTitle={props.editTitle}
+          editGenre={props.editGenre}
+          editCollection={props.editCollection}
+          editChapter={props.editChapter}
+          editCollectionCheck={props.editCollectionCheck}
+          editCollectionRes={props.editCollectionRes}
+          handleCollectionUpdate={props.handleCollectionUpdate}
+        />
       </div>
     )
   }
@@ -36,9 +52,11 @@ const Feed = (props) => {
   </span>
         </div>
         <Collection profile={props.profile}
-        collFeed={props.collFeed}
+          collFeed={props.collFeed}
           deleteHandler={props.deleteHandler}
           editHandler={props.editHandler}
+          edit={props.edit}
+          editSubmitHandler={props.editSubmitHandler}
           user={props.user}
           unsorted={props.unsorted} />
       </div>

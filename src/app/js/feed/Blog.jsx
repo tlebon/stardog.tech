@@ -1,8 +1,8 @@
 import React from 'react';
 
 const Blog = (props) => {
-  let dropdown= props.collectionRes.map((item,i)=>{
-    return(<div className="dropdown" key={i} onClick={e=>props.handleCollectionUpdate(e)}>{item.coll}
+  let dropdown = props.collectionRes.map((item, i) => {
+    return (<div className="dropdown" key={i} onClick={e => props.handleCollectionUpdate(e)}>{item.coll}
     </div>
     )
   })
@@ -36,28 +36,30 @@ const Blog = (props) => {
           <option value="News">News/Informative</option>
         </select>
       </label>
-      <input className="checkbox" 
+      <input className="checkbox"
         type="checkbox"
         name="collectionCheck"
         checked={props.collectionCheck}
         onChange={e => props.handleChange(e)} />
       Part of a Collection? <br />
-     {props.collectionCheck && <input className="coll-field"
+      {props.collectionCheck && <input className="coll-field"
         type="text"
         name="collection"
         value={props.collection}
         placeholder="Which one?"
         onChange={e => props.handleCollectionSearch(e)}></input>}
-        {props.collectionCheck && <input className="coll-field"
+      {props.collectionCheck && <input className="coll-field"
         type="number"
         name="chapter"
         value={props.chapter}
         placeholder="What Chapter?"
         onChange={e => props.handleChange(e)}></input>}
-      <button onClick={() => props.submitHandler(props.entry, props.priv, props.title, props.genre, props.collection,props.chapter)}>Submit</button><br/>
-        {props.collectionRes && props.collectionCheck && dropdown}
-        <br/>
-        {props.error!=="" && <button>{props.error}</button>}
+      <button onClick={() => props.submitHandler(props.entry, props.priv, props.title, props.genre, props.collection, props.chapter)}>Submit</button> &nbsp;
+      {props.edit && <button onClick={() => props.editHandler(null)}>Exit</button>}
+      <br />
+      {props.collectionRes && props.collectionCheck && dropdown}
+      <br />
+      {props.error !== "" && <button>{props.error}</button>}
     </div>
   );
 };
