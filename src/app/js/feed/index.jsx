@@ -19,6 +19,7 @@ class Index extends Component {
       collection: "",
       collectionRes: [],
       chapter: '',
+      found: false,
       //states for edit pop up
       edit: null,
       entryE: '',
@@ -28,9 +29,10 @@ class Index extends Component {
       collectionE: "",
       collectionResE: [],
       chapterE: '',
+      foundE:'',
+      errorE:"",
       //
       unsorted: true,
-      found: false,
       error: ""
     }
     this._submitHandler = this._submitHandler.bind(this);
@@ -245,7 +247,7 @@ class Index extends Component {
       })
       .catch(err => {
         this.setState({
-          error: err.description,
+          errorE: err.description,
         })
       })
   }
@@ -328,7 +330,7 @@ class Index extends Component {
   _handleCollectionEditUpdate(e) {
     this.setState({
       collectionE: e.target.inerHTML,
-      found: true,
+      foundE: true,
       collectionResE: [],
     })
     // console.log('found?', this.state.found)
@@ -380,7 +382,8 @@ class Index extends Component {
             handleChange={this._handleEditChange}
             handleCollectionSearch={this._handleCollectionEditSearch}
             editPriv={this.state.privE}
-            error={this.state.error}
+            error={this.state.errorE}
+            found={this.state.foundE}
             editTitle={this.state.titleE}
             editGenre={this.state.genreE}
             editCollection={this.state.collectionE}

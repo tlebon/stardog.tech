@@ -22,7 +22,7 @@ const Unsorted = (props) => {
         collectionCheck={props.editCollectionCheck}
         submitHandler={props.editSubmitHandler}
         collectionRes={props.editCollectionRes}
-        handleCollectionUpdate={props.handleCollectionUpdate} />)
+        handleCollectionUpdate={props.handleCollectionUpdate} style={{border:"4px black solid"}}/>)
     }
     if ((props.profile && post.email == props.user.email) || props.profile == null) {
       if (post.private === false || (props.user && post.private === true && props.user.email === post.email)) {
