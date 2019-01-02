@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const Coll = require("../../models/Coll")
-const authRoutes = require('./auth')
+// const authRoutes = require('./auth')
 const Post = require("../../models/Post")
 
 
@@ -170,7 +170,7 @@ router.post('/entry/c/e', (req, res, next) => {
       })
   }
   else {
-    Coll.deleteOne({ _id: coll })
+    Coll.One({ _id: coll })
       .then(data => {
         console.log(data)
         // delId=coll

@@ -23,11 +23,11 @@ class Index extends Component {
       edit: null,
       entryE: '',
       titleE: "",
-      editGenre: "Unsorted",
+      genreE: "Unsorted",
       collectionCheckE: false,
       collectionE: "",
       collectionResE: [],
-      editChapter: '',
+      chapterE: '',
       //
       unsorted: true,
       found: false,
@@ -38,8 +38,11 @@ class Index extends Component {
     this._editHandler = this._editHandler.bind(this);
     this._feedHandler = this._feedHandler.bind(this);
     this._handleChange = this._handleChange.bind(this);
+    this._handleEditChange = this._handleEditChange.bind(this);
     this._handleCollectionSearch = this._handleCollectionSearch.bind(this);
     this._handleCollectionUpdate = this._handleCollectionUpdate.bind(this);
+    this._handleCollectionEditSearch = this._handleCollectionEditSearch.bind(this);
+    this._handleCollectionEditUpdate = this._handleCollectionEditUpdate.bind(this);
     this._deleteHandler = this._deleteHandler.bind(this);
     // this._handleCheck = this._handleCheck.bind(this);
   }
@@ -209,17 +212,28 @@ class Index extends Component {
 
   }
 
-  // this should submit the updated content to the old _id
   _editHandler(post) {
     this.setState({
       edit: post
     })
+    if(post===null){
+      this.setState({
+        entryE: '',
+        titleE: "",
+        genreE: "Unsorted",
+        collectionCheckE: false,
+        collectionE: "",
+        collectionResE: [],
+        chapterE: '',
+      })
+    }
   }
-
-  _editSubmitHandler(entry, post) {
+  
+  // this should submit the updated content to the old _id
+  _editSubmitHandler(entry, priv, title, genre, collection, chapter) {
     console.log(entry)
     api
-      .post('/api/feed/entry/e', entry, post)
+      .post('/api/feed/entry/e', entry, priv, title, genre, collection, chapter)
       .then(data => {
         this.setState({
           edit: null,
@@ -235,39 +249,28 @@ class Index extends Component {
         })
       })
   }
+  _feedHandler() {
+    this.setState({
+      unsorted: !this.state.unsorted
+    })
+  }
   _handleChange(e) {
     const target = e.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
-    if (this.state.edit){
-      this.setState({
-        [name+"E"]:value
-      })
-    }
-    else{
+
     this.setState({
       [name]: value
-    })}
+    })
   }
+
   _handleCollectionSearch(e) {
     console.log(e.target.value)
     this._handleChange(e);
     let collection = e.target.value
-
-    if (this.state.edit) {
-      console.log("this.state.collection", collection)
-      api.post('/api/feed/entry/c', { collection })
-        .then((data) => {
-          console.log(data)
-          this.setState({
-            collectionResE: data,
-          })
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    }
-    else {
+    //currently only works for either edit or normal not both concurrently
+    //how to do it without making a separate function?
+   //made it a separate function for now for the functionality i want
       console.log("this.state.collection", collection)
       api.post('/api/feed/entry/c', { collection })
         .then((data) => {
@@ -279,31 +282,58 @@ class Index extends Component {
         .catch(err => {
           console.log(err)
         })
-    }
+    
   }
 
   _handleCollectionUpdate(e) {
-    if (this.state.edit) {
-      this.setState({
-        collectionE: e.target.inerHTML,
-        found: true,
-        collectionResE: [],
-      })
-    }
-    else {
-      this.setState({
-        collection: e.target.innerHTML,
-        found: true,
-        collectionRes: [],
-      })
-    }
+    this.setState({
+      collection: e.target.innerHTML,
+      found: true,
+      collectionRes: [],
+    })
     // console.log('found?', this.state.found)
   }
-  _feedHandler() {
+
+  //EDIT CHANGE HANDLERS ///
+
+  _handleEditChange(e) {
+    const target = e.target;
+    const value = target.type === "checkbox" ? target.checked : target.value;
+    const name = target.name;
+
     this.setState({
-      unsorted: !this.state.unsorted
+      [name + "E"]: value
     })
   }
+
+  _handleCollectionEditSearch(e) {
+    console.log(e.target.value)
+    this._handleEditChange(e);
+    let collection = e.target.value
+  
+      console.log("this.state.collection", collection)
+      api.post('/api/feed/entry/c', { collection })
+        .then((data) => {
+          console.log(data)
+          this.setState({
+            collectionResE: data,
+          })
+        })
+        .catch(err => {
+          console.log(err)
+        })
+
+  }
+
+  _handleCollectionEditUpdate(e) {
+    this.setState({
+      collectionE: e.target.inerHTML,
+      found: true,
+      collectionResE: [],
+    })
+    // console.log('found?', this.state.found)
+  }
+
 
   render() {
     if (this.state.loading === true) {
@@ -347,8 +377,8 @@ class Index extends Component {
             editSubmitHandler={this._editSubmitHandler}
             //moved over for the purposes of the edit button, some are unneeded
             editEntry={this.state.entryE}
-            handleChange={this._handleChange}
-            handleCollectionSearch={this._handleCollectionSearch}
+            handleChange={this._handleEditChange}
+            handleCollectionSearch={this._handleCollectionEditSearch}
             editPriv={this.state.privE}
             error={this.state.error}
             editTitle={this.state.titleE}
@@ -357,7 +387,7 @@ class Index extends Component {
             editChapter={this.state.chapterE}
             editCollectionCheck={this.state.collectionCheckE}
             editCollectionRes={this.state.collectionResE}
-            handleCollectionUpdate={this._handleCollectionUpdate}
+            handleCollectionUpdate={this._handleCollectionEditUpdate}
           />
         </div>
       </div>
