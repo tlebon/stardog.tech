@@ -12,7 +12,7 @@ const Unsorted = (props) => {
         editHandler={props.editHandler}
         edit={props.edit}
         handleCollectionSearch={props.handleCollectionSearch}
-        priv={props.editPriv || post.private}
+        priv={props.editPriv}
         error={props.error}
         title={props.editTitle || post.title}
         genre={props.editGenre || post.genre}

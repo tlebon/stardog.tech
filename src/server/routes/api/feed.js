@@ -151,35 +151,24 @@ router.post('/entry/c/d', (req, res, next) => {
   return Promise.resolve()
 })
 
-
-router.post('/entry/c/e', (req, res, next) => {
-
-  const entry = req.body._id[0];
-  const post = req.body._id[1]
-  const coll = req.body._id
-
-  console.log(entry, post, coll)
-  if (coll.length == 2) {  //this is checking to see if i am returning a collection and a post or just a post
-    // console.log("working if statment")
-    Coll.findByIdAndUpdate({ _id: post }, { $pull: { entries: { _id: entry } } }, { new: true })
-      .then(data => {
-        res.send(data);
-      })
-      .catch(err => {
-        console.log(err);
-      })
-  }
-  else {
-    Coll.One({ _id: coll })
-      .then(data => {
-        console.log(data)
-        // delId=coll
-        res.send({ _id: coll });
-      })
-      .catch(err => {
-        console.log(err);
-      })
-  }
-  return Promise.resolve()
+//EDIT ROUTES
+//edit post
+router.put('/entry/e', (req, res, next) => {
+  let { entry, priv, title, genre, collection, chapter ,id} = req.body
+  console.log("req.body",req.body)
+  Post.findOneAndUpdate({ '_id': `${id}` }, {
+        entry,
+        title,
+        chapter,
+        type: genre,
+        private: priv    
+  }, { new: true })
+    .then(data => {
+      console.log(data)
+      res.send(data)
+    })
+    .catch(err => {
+      console.log(err)
+    })
 })
 module.exports = router;

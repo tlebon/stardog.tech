@@ -24,6 +24,7 @@ class Index extends Component {
       edit: null,
       entryE: '',
       titleE: "",
+      privE:false,
       genreE: "Unsorted",
       collectionCheckE: false,
       collectionE: "",
@@ -227,22 +228,23 @@ class Index extends Component {
         collectionE: "",
         collectionResE: [],
         chapterE: '',
+        privE:false
       })
     }
   }
   
   // this should submit the updated content to the old _id
-  _editSubmitHandler(entry, priv, title, genre, collection, chapter) {
-    console.log(entry)
+  _editSubmitHandler(entry, priv, title, genre, collection, chapter,id) {
+    console.log(entry, priv, title, genre, collection,chapter,id)
     api
-      .post('/api/feed/entry/e', entry, priv, title, genre, collection, chapter)
+      .put('/api/feed/entry/e',{entry, priv, title, genre, collection, chapter,id})
       .then(data => {
         this.setState({
           edit: null,
-          feed: this.state.feed.filter(el => {
+          feed: [data, ...this.state.feed.filter(el => {
             if (el._id !== data._id) return true;
             return false;
-          })
+          })]
         })
       })
       .catch(err => {
@@ -374,10 +376,10 @@ class Index extends Component {
             user={this.props.user}
             unsorted={this.state.unsorted}
             loading={this.state.loading}
+            //Edit handlers
             editHandler={this._editHandler}
             edit={this.state.edit}
             editSubmitHandler={this._editSubmitHandler}
-            //moved over for the purposes of the edit button, some are unneeded
             editEntry={this.state.entryE}
             handleChange={this._handleEditChange}
             handleCollectionSearch={this._handleCollectionEditSearch}

@@ -54,7 +54,7 @@ const Blog = (props) => {
         value={props.chapter}
         placeholder="What Chapter?"
         onChange={e => props.handleChange(e)}></input>}
-      <button onClick={() => props.submitHandler(props.entry, props.priv, props.title, props.genre, props.collection, props.chapter)}>Submit</button> &nbsp;
+      <button onClick={() => props.submitHandler(props.entry, props.priv, props.title, props.genre, props.collection, props.chapter,props.edit)}>Submit</button> &nbsp;
       {props.edit && <button onClick={() => props.editHandler(null)}>Exit</button>}
       <br />
       {props.collectionRes && props.collectionCheck && dropdown}
