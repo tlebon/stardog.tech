@@ -57,10 +57,10 @@ const Blog = (props) => {
       <button onClick={() => props.submitHandler(props.entry, props.priv, props.title, props.genre, props.collection, props.chapter,props.edit)}>Submit</button> &nbsp;
       {props.edit && <button onClick={() => props.editHandler(null)}>Exit</button>}
       <br />
+      {props.edit && <hr/>}
       {props.collectionRes && props.collectionCheck && dropdown}
       <br />
       {props.error !== "" && <button>{props.error}</button>}
-      {props.edit && <hr/>}
     </div>
   );
 };

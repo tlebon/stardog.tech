@@ -14,6 +14,7 @@ const Unsorted = (props) => {
         handleCollectionSearch={props.handleCollectionSearch}
         priv={props.editPriv}
         error={props.error}
+        found={props.editFound}
         title={props.editTitle || post.title}
         genre={props.editGenre || post.genre}
         user={props.user}

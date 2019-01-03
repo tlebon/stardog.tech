@@ -139,10 +139,13 @@ button {
     border: 1px solid black;
     border-radius:5px;
     width:80%;
+    z-index:1;
+    position: relative;
     white-space: pre-wrap;
     @media (max-width: 850px) {
         height:342px;
         }
+    
 }
 
 .dropdown{

@@ -30,6 +30,7 @@ const Feed = (props) => {
           editEntry={props.editEntry}
           editPriv={props.editPriv}
           error={props.error}
+          editFound={props.editFound}
           editTitle={props.editTitle}
           editGenre={props.editGenre}
           editCollection={props.editCollection}

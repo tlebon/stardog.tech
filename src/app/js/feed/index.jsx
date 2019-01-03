@@ -228,7 +228,8 @@ class Index extends Component {
         collectionE: "",
         collectionResE: [],
         chapterE: '',
-        privE:false
+        privE:false,
+        foundE:false
       })
     }
   }
@@ -272,9 +273,8 @@ class Index extends Component {
     console.log(e.target.value)
     this._handleChange(e);
     let collection = e.target.value
-    //currently only works for either edit or normal not both concurrently
+    //made it a separate function for now for the functionality i want
     //how to do it without making a separate function?
-   //made it a separate function for now for the functionality i want
       console.log("this.state.collection", collection)
       api.post('/api/feed/entry/c', { collection })
         .then((data) => {
@@ -331,7 +331,7 @@ class Index extends Component {
 
   _handleCollectionEditUpdate(e) {
     this.setState({
-      collectionE: e.target.inerHTML,
+      collectionE: e.target.innerHTML,
       foundE: true,
       collectionResE: [],
     })
@@ -380,12 +380,12 @@ class Index extends Component {
             editHandler={this._editHandler}
             edit={this.state.edit}
             editSubmitHandler={this._editSubmitHandler}
-            editEntry={this.state.entryE}
             handleChange={this._handleEditChange}
             handleCollectionSearch={this._handleCollectionEditSearch}
+            editEntry={this.state.entryE}
             editPriv={this.state.privE}
             error={this.state.errorE}
-            found={this.state.foundE}
+            editFound={this.state.foundE}
             editTitle={this.state.titleE}
             editGenre={this.state.genreE}
             editCollection={this.state.collectionE}
