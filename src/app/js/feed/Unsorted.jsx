@@ -6,7 +6,7 @@ const Unsorted = (props) => {
   let feed = props.feed.map(post => {
     // console.log(post.email , props.user)
     if (props.edit == post._id) {
-      return (<div className="edit-field"><Blog key={post._id}
+      return (<div className="edit-field" key={post._id}><Blog 
         entry={props.editEntry || post.entry}
         handleChange={props.handleChange}
         editHandler={props.editHandler}
