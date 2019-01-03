@@ -37,6 +37,8 @@ const Unsorted = (props) => {
               {post.entry}
             </span>&nbsp;&nbsp;
       <br /> <button>{post.type}</button>&nbsp;&nbsp;
+      {props.user && props.user.email === post.email && post.private && <button style={{ color: "orange" }}>Private</button>} 
+      {props.user && props.user.email === post.email && post.private && <span>&nbsp;&nbsp;</span>}
         {props.user && props.user.email === post.email && <button onClick={e => props.deleteHandler(post)}>Delete</button>}
             &nbsp;&nbsp;
         {props.user && props.user.email === post.email && <button style={{ color: "yellow" }} onClick={e => props.editHandler(post._id)}>Edit</button>}
