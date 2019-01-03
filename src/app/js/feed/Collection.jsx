@@ -6,7 +6,7 @@ const Collection = (props) => {
     let entry = post.entries.map(entry => {
       return (
         <div key={entry._id}>
-          "{entry.title}"
+         {entry.chapter} "{entry.title}" 
           <br />
           {entry.entry}
           <br /> <button>{entry.type}</button>&nbsp;&nbsp;

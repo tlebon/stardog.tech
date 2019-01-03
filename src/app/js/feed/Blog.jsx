@@ -60,6 +60,7 @@ const Blog = (props) => {
       {props.collectionRes && props.collectionCheck && dropdown}
       <br />
       {props.error !== "" && <button>{props.error}</button>}
+      {props.edit && <hr/>}
     </div>
   );
 };
