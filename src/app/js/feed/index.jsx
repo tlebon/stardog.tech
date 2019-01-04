@@ -242,10 +242,10 @@ class Index extends Component {
       .then(data => {
         this.setState({
           edit: null,
-          feed: [data, ...this.state.feed.filter(el => {
-            if (el._id !== data._id) return true;
-            return false;
-          })]
+          feed: this.state.feed.map(el => {
+            if (el._id !== data._id) return;
+            return data;
+          })
         })
       })
       .catch(err => {
