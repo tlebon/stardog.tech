@@ -155,7 +155,7 @@ router.post('/entry/c/d', (req, res, next) => {
 //edit post
 router.put('/entry/e', (req, res, next) => {
   let { entry, priv, title, genre, collection, chapter ,id} = req.body
-  console.log("req.body",req.body)
+  // console.log("req.body",req.body)
   Post.findOneAndUpdate({ '_id': `${id}` }, {
         entry,
         title,

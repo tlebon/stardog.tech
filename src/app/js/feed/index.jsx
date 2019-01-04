@@ -180,6 +180,7 @@ class Index extends Component {
                 return false;
               })]
               //NOTE:we can apply a sort to this later to make sure the updated post isnt moved to the front
+              //if sorting by update this is currently corect :thumbsup:
             })
           }
           else {
@@ -240,10 +241,11 @@ class Index extends Component {
     api
       .put('/api/feed/entry/e',{entry, priv, title, genre, collection, chapter,id})
       .then(data => {
+        console.log(data._id)
         this.setState({
           edit: null,
           feed: this.state.feed.map(el => {
-            if (el._id !== data._id) return;
+            if (el._id !== data._id) return el;
             return data;
           })
         })

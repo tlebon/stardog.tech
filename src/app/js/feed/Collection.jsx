@@ -22,14 +22,14 @@ const Collection = (props) => {
         <h3>{post.coll}
         </h3>
         by {post.email}&nbsp; &nbsp;
-      {moment(post.created_at).fromNow()}
+      {moment(post.updated_at).fromNow()}
         <br />
         {entry}
         {/* <br /> <button>{entry.type}</button>&nbsp;&nbsp; */}
-        {props.user && props.user.email === post.email && <button onClick={e => props.deleteHandler(post)}>Delete</button>}
-        &nbsp;&nbsp;
-        {props.user && props.user.email === post.email && <button style={{ color: "yellow" }} onClick={e => props.editHandler(post)}>Edit</button>}
-        <hr /></div>
+        {props.user && props.user.email === post.email && <button onClick={e => props.deleteHandler(post)}>Delete Collection</button>}
+        {/* {props.user && props.user.email === post.email && <div>&nbsp;&nbsp;</div>} */}
+        {/* {props.user && props.user.email === post.email && <button style={{ color: "yellow" }} onClick={e => props.editHandler(post)}>Edit</button>} */}
+        {props.user && props.user.email === post.email && <div><hr/></div>}</div>
     )
    }
    else return

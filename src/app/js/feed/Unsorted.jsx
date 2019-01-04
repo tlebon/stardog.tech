@@ -30,7 +30,7 @@ const Unsorted = (props) => {
         return (
           <div key={post._id}>
             {post.title} &nbsp;&nbsp;
-        {moment(post.created_at).fromNow()}
+        {moment(post.updated_at).fromNow()}
             &nbsp; by {post.email}
             <br />
             <span>
