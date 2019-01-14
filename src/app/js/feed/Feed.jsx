@@ -59,7 +59,22 @@ const Feed = (props) => {
           edit={props.edit}
           editSubmitHandler={props.editSubmitHandler}
           user={props.user}
-          unsorted={props.unsorted} />
+          unsorted={props.unsorted} 
+            //edit button states
+            handleChange={props.handleChange}
+          handleCollectionSearch={props.handleCollectionSearch}
+          editEntry={props.editEntry}
+          editPriv={props.editPriv}
+          error={props.error}
+          editFound={props.editFound}
+          editTitle={props.editTitle}
+          editGenre={props.editGenre}
+          editCollection={props.editCollection}
+          editChapter={props.editChapter}
+          editCollectionCheck={props.editCollectionCheck}
+          editCollectionRes={props.editCollectionRes}
+          handleCollectionUpdate={props.handleCollectionUpdate}
+          />
       </div>
     )
   }

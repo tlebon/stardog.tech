@@ -154,21 +154,41 @@ router.post('/entry/c/d', (req, res, next) => {
 //EDIT ROUTES
 //edit post
 router.put('/entry/e', (req, res, next) => {
-  let { entry, priv, title, genre, collection, chapter ,id} = req.body
-  // console.log("req.body",req.body)
-  Post.findOneAndUpdate({ '_id': `${id}` }, {
-        entry,
-        title,
-        chapter,
-        type: genre,
-        private: priv    
-  }, { new: true })
-    .then(data => {
-      console.log(data)
-      res.send(data)
-    })
-    .catch(err => {
-      console.log(err)
-    })
+  let { entry, priv, title, genre, collection, chapter, id } = req.body
+  console.log("req.body", req.body)
+  if (collection) {
+    Coll.findOneAndUpdate({ 'entries._id': id }, {
+      "entries.$.entry": entry,
+      "entries.$.title": title,
+      "entries.$.chapter": chapter,
+      "entries.$.type": genre,
+      "entries.$.private": priv
+    }, { new: true })
+      .then(data => {
+        res.send(data);
+        console.log(data)
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+  else {
+    Post.findOneAndUpdate({ '_id': `${id}` }, {
+      entry,
+      title,
+      chapter,
+      type: genre,
+      private: priv
+    }, { new: true })
+      .then(data => {
+        console.log(data, "am i the problem?")
+        res.send(data)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+  return Promise.resolve()
 })
+
 module.exports = router;

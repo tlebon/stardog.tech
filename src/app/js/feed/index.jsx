@@ -24,14 +24,14 @@ class Index extends Component {
       edit: null,
       entryE: '',
       titleE: "",
-      privE:false,
+      privE: false,
       genreE: "Unsorted",
       collectionCheckE: false,
       collectionE: "",
       collectionResE: [],
       chapterE: '',
-      foundE:'',
-      errorE:"",
+      foundE: '',
+      errorE: "",
       //
       unsorted: true,
       error: ""
@@ -220,7 +220,7 @@ class Index extends Component {
     this.setState({
       edit: post
     })
-    if(post===null){
+    if (post === null) {
       this.setState({
         entryE: '',
         titleE: "",
@@ -229,25 +229,38 @@ class Index extends Component {
         collectionE: "",
         collectionResE: [],
         chapterE: '',
-        privE:false,
-        foundE:false
+        privE: false,
+        foundE: false
       })
     }
   }
-  
+
   // this should submit the updated content to the old _id
-  _editSubmitHandler(entry, priv, title, genre, collection, chapter,id) {
-    console.log(entry, priv, title, genre, collection,chapter,id)
+  _editSubmitHandler(entry, priv, title, genre, collection, chapter, id) {
+    console.log(entry, priv, title, genre, collection, chapter, id)
     api
-      .put('/api/feed/entry/e',{entry, priv, title, genre, collection, chapter,id})
+      .put('/api/feed/entry/e', { entry, priv, title, genre, collection, chapter, id })
       .then(data => {
         console.log(data._id)
         this.setState({
           edit: null,
+          entryE: '',
+          titleE: "",
+          genreE: "Unsorted",
+          collectionCheckE: false,
+          collectionE: "",
+          collectionResE: [],
+          chapterE: '',
+          privE: false,
+          foundE: false,
           feed: this.state.feed.map(el => {
             if (el._id !== data._id) return el;
             return data;
-          })
+          }),
+          collFeed: [data, ...this.state.collFeed.filter(post => {
+            if (post._id !== data._id) return true;
+            return false;
+          })]
         })
       })
       .catch(err => {
@@ -277,18 +290,18 @@ class Index extends Component {
     let collection = e.target.value
     //made it a separate function for now for the functionality i want
     //how to do it without making a separate function?
-      console.log("this.state.collection", collection)
-      api.post('/api/feed/entry/c', { collection })
-        .then((data) => {
-          console.log(data)
-          this.setState({
-            collectionRes: data,
-          })
+    console.log("this.state.collection", collection)
+    api.post('/api/feed/entry/c', { collection })
+      .then((data) => {
+        console.log(data)
+        this.setState({
+          collectionRes: data,
         })
-        .catch(err => {
-          console.log(err)
-        })
-    
+      })
+      .catch(err => {
+        console.log(err)
+      })
+
   }
 
   _handleCollectionUpdate(e) {
@@ -316,18 +329,18 @@ class Index extends Component {
     console.log(e.target.value)
     this._handleEditChange(e);
     let collection = e.target.value
-  
-      console.log("this.state.collection", collection)
-      api.post('/api/feed/entry/c', { collection })
-        .then((data) => {
-          console.log(data)
-          this.setState({
-            collectionResE: data,
-          })
+
+    console.log("this.state.collection", collection)
+    api.post('/api/feed/entry/c', { collection })
+      .then((data) => {
+        console.log(data)
+        this.setState({
+          collectionResE: data,
         })
-        .catch(err => {
-          console.log(err)
-        })
+      })
+      .catch(err => {
+        console.log(err)
+      })
 
   }
 
