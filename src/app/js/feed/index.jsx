@@ -277,10 +277,10 @@ class Index extends Component {
             if (el._id !== data._id) return el;
             return data;
           }),
-          collFeed: [data, ...this.state.collFeed.filter(post => {
-            if (post._id !== data._id) return true;
-            return false;
-          })]
+          collFeed:this.state.collFeed.map(post => {
+            if (post._id !== data._id) return post;
+            return data;
+          })
         })
       })
       .catch(err => {
