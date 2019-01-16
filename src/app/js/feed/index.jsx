@@ -32,12 +32,14 @@ class Index extends Component {
       chapterE: '',
       foundE: '',
       errorE: "",
+      collectionTitleEdit: '',
       //
       unsorted: true,
       error: ""
     }
     this._submitHandler = this._submitHandler.bind(this);
     this._editSubmitHandler = this._editSubmitHandler.bind(this);
+    this._editTitleSubmitHandler = this._editTitleSubmitHandler.bind(this);
     this._editHandler = this._editHandler.bind(this);
     this._feedHandler = this._feedHandler.bind(this);
     this._handleChange = this._handleChange.bind(this);
@@ -216,6 +218,23 @@ class Index extends Component {
 
   }
 
+ 
+
+  _editTitleSubmitHandler(collection, title) {
+    console.log(collection, title)
+    api.
+      put('/api/feed/coll/title',{collection,title})
+      .then(data=>
+        this.setState({
+          title:'',
+          edit:null,
+          collFeed: [data, ...this.state.collFeed.filter(post => {
+            if (post._id !== data._id) return true;
+            return false;
+          })]
+        }))
+  }
+
   _editHandler(post) {
     this.setState({
       edit: post
@@ -228,6 +247,7 @@ class Index extends Component {
         collectionCheckE: false,
         collectionE: "",
         collectionResE: [],
+        collectionTitleEdit: "",
         chapterE: '',
         privE: false,
         foundE: false
@@ -395,6 +415,7 @@ class Index extends Component {
             editHandler={this._editHandler}
             edit={this.state.edit}
             editSubmitHandler={this._editSubmitHandler}
+            editTitleSubmitHandler={this._editTitleSubmitHandler}
             handleChange={this._handleEditChange}
             handleCollectionSearch={this._handleCollectionEditSearch}
             editEntry={this.state.entryE}

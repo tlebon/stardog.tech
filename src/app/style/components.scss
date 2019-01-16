@@ -144,6 +144,8 @@ button {
     white-space: pre-wrap;
     @media (max-width: 850px) {
         height:342px;
+        width:100%;
+        height: 100%;
         }
     
 }
@@ -154,4 +156,12 @@ button {
     margin-bottom: .5px;
     // border-bottom:black solid .5px;
     width:60%;
+}
+
+.edit-pencil{
+    height:2vh;
+}
+
+.coll-title{
+    margin:5px;
 }

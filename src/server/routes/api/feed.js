@@ -181,7 +181,6 @@ router.put('/entry/e', (req, res, next) => {
       private: priv
     }, { new: true })
       .then(data => {
-        console.log(data, "am i the problem?")
         res.send(data)
       })
       .catch(err => {
@@ -189,6 +188,19 @@ router.put('/entry/e', (req, res, next) => {
       })
   }
   return Promise.resolve()
+})
+
+//edit collection title
+router.put('/coll/title',(req,res,next)=>{
+  let {collection,title} =req.body
+  console.log(collection, title)
+  Coll.findByIdAndUpdate({'_id':collection},{coll:title},{new:true})
+  .then(data=>{
+    res.send(data)
+  })
+  .catch(err=>{
+    console.log(err)
+  })
 })
 
 module.exports = router;

@@ -58,10 +58,11 @@ const Feed = (props) => {
           editHandler={props.editHandler}
           edit={props.edit}
           editSubmitHandler={props.editSubmitHandler}
+          editTitleSubmitHandler={props.editTitleSubmitHandler}
           user={props.user}
-          unsorted={props.unsorted} 
-            //edit button states
-            handleChange={props.handleChange}
+          unsorted={props.unsorted}
+          //edit button states
+          handleChange={props.handleChange}
           handleCollectionSearch={props.handleCollectionSearch}
           editEntry={props.editEntry}
           editPriv={props.editPriv}
@@ -74,7 +75,7 @@ const Feed = (props) => {
           editCollectionCheck={props.editCollectionCheck}
           editCollectionRes={props.editCollectionRes}
           handleCollectionUpdate={props.handleCollectionUpdate}
-          />
+        />
       </div>
     )
   }
