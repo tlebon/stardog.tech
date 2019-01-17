@@ -82,7 +82,7 @@ const Collection = (props) => {
   });
 
 
-  return (<div>
+  return (<div className="feed-content">
     {feed}
   </div>)
 }

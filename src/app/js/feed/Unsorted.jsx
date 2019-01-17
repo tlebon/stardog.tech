@@ -28,7 +28,7 @@ const Unsorted = (props) => {
     if ((props.profile && post.email == props.user.email) || props.profile == null) {
       if (post.private === false || (props.user && post.private === true && props.user.email === post.email)) {
         return (
-          <div key={post._id}>
+          <div key={post._id} >
             {post.title} &nbsp;&nbsp;
         {moment(post.updated_at).fromNow()}
             &nbsp; by {post.email}
@@ -51,7 +51,7 @@ const Unsorted = (props) => {
   })
   if (props.loading == true) return (<div>Loading...</div>)
   else {
-    return (<div>
+    return (<div className="feed-content">
       {feed}
     </div>)
   }

@@ -15,7 +15,8 @@ const Feed = (props) => {
           <span onClick={e => props.feedHandler()}>collections
   </span>
         </div>
-        <Unsorted profile={props.profile}
+        <Unsorted 
+        profile={props.profile}
           feed={props.feed}
           edit={props.edit}
           feedHandler={props.feedHandler}

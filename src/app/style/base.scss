@@ -27,17 +27,19 @@ body {
     padding: 10px 15vw 0px ;
 background:white !important;
 // height:100vh;
+// overflow:hidden;
     @media (min-width: 850px) and (max-width:1200px) {
-        padding: 25px 10px;
+        padding: 25px 10px 0 10px;
+        // overflow:auto !important;
     }
 }
 .container-lite-blog {
     // padding: 10px 15vw 0px ;
-background:white !important;
-@media (min-width: 850px) {
-    height:100vh;
+    background:white !important;
+    @media (min-width: 850px) {
+        height:100vh;
     display:flex;
-        padding: 25px 10px;
+        padding: 25px 10px 0 10px;
     }
   
 }
@@ -55,8 +57,18 @@ color:white;
     color:white;
     background-color: $primary-color;
     height: 30px;
+    width:100%;
      border-bottom: 1px solid black;
+     position:fixed;
+     @media (max-width: 980px) {
+       position:absolute;
+        }
     
+}
+
+.feed-content{
+    padding-top: 30px;
+    // position:absolute;
 }
 
 .profile-page{

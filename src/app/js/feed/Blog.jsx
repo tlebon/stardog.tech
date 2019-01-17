@@ -7,7 +7,7 @@ const Blog = (props) => {
     )
   })
   return (
-    <div >
+    <div className="blog">
       <input className="title-field"
         type="text"
         name="title"

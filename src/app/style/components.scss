@@ -104,6 +104,9 @@ button {
         height:300px;
         }
 }
+.blog{
+    display:block;
+}
 .title-field{
     // resize:none;
     border-radius:5px;
@@ -145,7 +148,7 @@ button {
     @media (max-width: 850px) {
         height:342px;
         width:100%;
-        height: 100%;
+        // height: 80%;
         }
     
 }
