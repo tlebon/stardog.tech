@@ -8,8 +8,8 @@ As it has new features added I will update the readme accordingly. :)
 
 ## Current Update
 
-14/12/2018: Nearly a month since my last update! The blog now has a new feature- Collections! Some of the styling and small things may change but collections are now working completely! the Feed navbar on the blog has a toggle to choose to look at either collections or unsorted posts. 
-A collection allows groupings of posts- so you can post a story now. You can find your old collection and add to it and delete a single story from the collection or even the whole thing!  I have several ideas where to go from here but first will likely be editing posts. But expect some other cool things too. Until next time! - StarDog.
+12/02/2019: Two months since my last update! I apologize as most of the work on the blog page has been done for about a month but I forgot to update the Readme. Again my apologies! 
+The Edit feature is now working for both single entries and collections! There might need to be some sorting things changed but for now I am taking a small break on this project to pursue other things and relax until I start a new job. But I will return! I have new ideas already and I am excited to step away to allow them to grow into beautiful new things. Lots of Love! - Stardog
 
 
  ## Have a nice day!
@@ -28,5 +28,8 @@ this is using the 'React + express starter template', by Lukas
 
 
  ## Old Updates!
+
+ 14/12/2018: Nearly a month since my last update! The blog now has a new feature- Collections! Some of the styling and small things may change but collections are now working completely! the Feed navbar on the blog has a toggle to choose to look at either collections or unsorted posts. 
+A collection allows groupings of posts- so you can post a story now. You can find your old collection and add to it and delete a single story from the collection or even the whole thing!  I have several ideas where to go from here but first will likely be editing posts. But expect some other cool things too. Until next time! - StarDog.
 
 19/11/2018: The blog feed is working now! It is a community blog for any user to post on. It will have some new features added to it still but currently it works and you can set a post to private for it to only show up for you. In the next few days the private feed will also be added to your profile page. Deleting works, but editing has not been implemented. As the website has one working feature I will try to add it to the webpage now. Watch for more changes to come. :) -Stardog.

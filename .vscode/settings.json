@@ -1,4 +1,5 @@
 {
   "editor.snippetSuggestions": "top",
-  "editor.quickSuggestionsDelay": 20
+  "editor.quickSuggestionsDelay": 20,
+  "breadcrumbs.enabled": true,
 }
